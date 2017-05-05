@@ -14,14 +14,14 @@ The system features:
 - Astroberry PiFace drivers for a relay and focuser control
 
 # How to start?
-Download, unpack and flash your microSD card (minimum 16GB required) with the system image:
+Download the image file from https://drive.google.com/open?id=0B8iZo4LMCyr6VG5Ic3VnbGJKTkU
+Unpack the image file and flash your microSD card (minimum 16GB required) with it:
 ```
-git clone https://github.com/rkaczorek/astroberry-server.git
-cd astroberry-server
-xz -d astroberry-server.img.xz
-dd if=astroberry-server.img of=/dev/sdX bs=4M
+xz -d astroberry-XXX.img.xz
+dd if=astroberry-XXX.img of=/dev/sdX bs=4M
 ```
 Note: Replace sdX with your microSD card identifier. Make sure it is correct before running the above command!
+Note2: Due to github does not allow to keep files over 100MB the image is stored on Google Drive.
 
 # How to use it?
 It's as simple as this:
@@ -29,6 +29,10 @@ It's as simple as this:
 - Connect to a astroberry wireless network (default password is astroberry)
 - Point your browser to https://astroberry.local
 - Have fun
+
+Note: When accessing Astroberry Server with your browser for the first time you need to trust its certificate.
+There's no risk involved and the reason is that the system uses self-signed SSL certificate which needs to be
+accepted by your browser. You need to do it once. Just add permanent exception when prompted by a browser.
 
 # How to reconfigure it?
 You can use it as any Ubuntu system, however there are some mission critical parameters to be configured by
