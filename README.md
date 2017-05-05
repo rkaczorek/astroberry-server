@@ -21,6 +21,7 @@ xz -d astroberry-XXX.img.xz
 dd if=astroberry-XXX.img of=/dev/sdX bs=4M
 ```
 Note: Replace sdX with your microSD card identifier. Make sure it is correct before running the above command!
+
 Note2: Due to github does not allow to keep files over 100MB the image is stored on Google Drive.
 
 # How to use it?
