@@ -1,4 +1,4 @@
-# astroberry-server
+# Astroberry Server
 Astroberry Server is a ready to use astronomy desktop system for Raspberry Pi 3
 It is a standalone system for controlling astronomy equipment supported by INDI server.
 
@@ -14,11 +14,14 @@ The system features:
 - Astroberry PiFace drivers for a relay and focuser control
 
 # How to start?
-Unpack and flash your microSD card (minimum 16GB required) with the system image:
+Download, unpack and flash your microSD card (minimum 16GB required) with the system image:
 ```
-xz -d astroberry-XXX.img.xz
-dd if=astroberry-XXX.img of=/dev/sdX bs=4M
+git clone https://github.com/rkaczorek/astroberry-server.git
+cd astroberry-server
+xz -d astroberry-server.img.xz
+dd if=astroberry-server.img of=/dev/sdX bs=4M
 ```
+Note: Replace sdX with your microSD card identifier. Make sure it is correct before running the above command!
 
 # How to use it?
 It's as simple as this:
