@@ -25,6 +25,8 @@ if [ -z "$DL" ]; then
    exit 1
 fi
 
+echo "Updating Astroberry Server..."
+
 if [ -d "$DLDIR" ]; then
    rm -rf "$DLDIR"
 fi

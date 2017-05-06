@@ -12,6 +12,7 @@ fi
 echo -e "Enter your wireless network parameters\n"
 read -p "Name:" SSID
 read -sp "Password:" PSK
+echo
 
 if [ -z "$SSID" ] || [ -z "$PSK" ]; then
    echo "You must enter your network name and password!"
