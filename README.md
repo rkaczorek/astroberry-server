@@ -4,6 +4,7 @@ It is a standalone system for controlling astronomy equipment supported by INDI 
 
 The system features:
 - Ubuntu Mate 16.04 Desktop
+- Virtual Access Point (VAP) allowing to access the system without external wireless network
 - Remote desktop accessible over VNC at astroberry.local:5900 or a web browser at https://astroberry.local
 - KStars and Ekos with all available device drivers
 - Astrometry with basic index files
@@ -12,6 +13,7 @@ The system features:
 - StarPlot for 3-dimensional positions of stars in space
 - oaCapture and wxAstroCapture for planetary imaging
 - Astroberry PiFace drivers for a relay and focuser control
+- Samba server sharing Pictures directory for easy access to captured images
 
 # How to start?
 Download the image file from https://drive.google.com/open?id=0B8iZo4LMCyr6VG5Ic3VnbGJKTkU
