@@ -1,0 +1,57 @@
+#!/bin/bash
+#
+# astroberry server update script
+# Author: Radek Kaczorek, rkaczorek AT gmail DOT com
+# License: GPL 3.0
+
+URL="https://raw.githubusercontent.com/rkaczorek/astroberry-server/master/scripts"
+DLDIR="/tmp/astroberry"
+DSTDIR="/usr/local/bin"
+DL=$(which wget)
+SCRIPTS="apstart
+wlanconf
+wlanconf-gui
+aprename
+appass"
+
+if [[ $EUID -ne 0 ]]; then
+   echo "This script must be run as root" 1>&2
+   exit 1
+fi
+
+if [ -z "$DL" ]; then
+   echo "You need to install wget to use this script."
+   exit 1
+fi
+
+if [ -d "$DLDIR" ]; then
+   rm -rf "$DLDIR"
+fi
+
+mkdir "$DLDIR"
+
+if [ -d "$DLDIR" ]; then
+   cd "$DLDIR"
+else
+   echo "Error creating download directory"
+   exit 1
+fi
+
+# download files
+for f in $SCRIPTS; do
+   $DL -q "$URL/$f"
+done
+
+# copy files to destination and set ownership and permissions
+for f in $(ls); do
+   cp "$f" "$DSTDIR"
+   chown root.root "$DSTDIR/$f"
+   chmod 755 "$DSTDIR/$f"
+done
+
+# remove leftovers
+rm -rf $DLDIR
+
+echo "Astroberry Server updated successfully"
+
+exit 0
