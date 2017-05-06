@@ -16,15 +16,19 @@ The system features:
 - Samba server sharing Pictures directory for easy access to captured images
 
 # How to start?
+Due to github does not allow keeping files over 100MB the image is stored on Google Drive.
 Download the image file from https://drive.google.com/open?id=0B8iZo4LMCyr6VG5Ic3VnbGJKTkU
+
+Checksums for packed and unpacked image file are:
+129a6adf71d9a3ec8212e75bbf7648510104ffdae2c38c7a4d328f6acb981a6f  astroberry-1.0.20170505.img.xz
+f9a753d2c48d713d709cf31345b56c9e9769ffedcbb1b463f8e4b22298f9f6a1  astroberry-1.0.20170505.img
+
 Unpack the image file and flash your microSD card (minimum 16GB required) with it:
 ```
 xz -d astroberry-XXX.img.xz
 sudo dd if=astroberry-XXX.img of=/dev/sdX bs=4M
 ```
 Note: Replace sdX with your microSD card identifier. Make sure it is correct before running the above command!
-
-Note2: Due to github does not allow keeping files over 100MB the image is stored on Google Drive.
 
 # How to use it?
 It's as simple as this:
