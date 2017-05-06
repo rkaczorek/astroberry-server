@@ -17,7 +17,9 @@ The system features:
 
 # How to start?
 Due to github does not allow keeping files over 100MB the image is stored on Google Drive.
+
 Download the image file from https://drive.google.com/open?id=0B8iZo4LMCyr6NnJXZFA3TUxKamc
+
 Confirm SHA256 checksums in SHA256SUMS file for packed and unpacked image files to ensure that
 they are not corrupted during download.
 
