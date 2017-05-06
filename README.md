@@ -20,7 +20,7 @@ Download the image file from https://drive.google.com/open?id=0B8iZo4LMCyr6VG5Ic
 Unpack the image file and flash your microSD card (minimum 16GB required) with it:
 ```
 xz -d astroberry-XXX.img.xz
-dd if=astroberry-XXX.img of=/dev/sdX bs=4M
+sudo dd if=astroberry-XXX.img of=/dev/sdX bs=4M
 ```
 Note: Replace sdX with your microSD card identifier. Make sure it is correct before running the above command!
 
