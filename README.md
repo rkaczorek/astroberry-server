@@ -17,13 +17,9 @@ The system features:
 
 # How to start?
 Due to github does not allow keeping files over 100MB the image is stored on Google Drive.
-Download the image file from https://drive.google.com/open?id=0B8iZo4LMCyr6VG5Ic3VnbGJKTkU
-
-Checksums for packed and unpacked image file are:
-```
-129a6adf71d9a3ec8212e75bbf7648510104ffdae2c38c7a4d328f6acb981a6f  astroberry-1.0.20170505.img.xz
-f9a753d2c48d713d709cf31345b56c9e9769ffedcbb1b463f8e4b22298f9f6a1  astroberry-1.0.20170505.img
-```
+Download the image file from https://drive.google.com/open?id=0B8iZo4LMCyr6NnJXZFA3TUxKamc
+Confirm SHA256 checksums in SHA256SUMS file for packed and unpacked image files to ensure that
+they are not corrupted during download.
 
 Unpack the image file and flash your microSD card (minimum 16GB required) with it:
 ```
@@ -46,6 +42,7 @@ accepted by your browser. You need to do it once. Just add permanent exception w
 # How to reconfigure it?
 You can use it as any Ubuntu system, however there are some mission critical parameters to be configured by
 embedded scripts i.e.
+- astroberry-update - to update Astroberry Server scripts
 - aprename - to change access point name from astroberry to whatever you want
 - appass - to change password to your astroberry access point
 - wlanconf - to configure and connect Astroberry Server to your home wireless network
