@@ -20,8 +20,10 @@ Due to github does not allow keeping files over 100MB the image is stored on Goo
 Download the image file from https://drive.google.com/open?id=0B8iZo4LMCyr6VG5Ic3VnbGJKTkU
 
 Checksums for packed and unpacked image file are:
+```
 129a6adf71d9a3ec8212e75bbf7648510104ffdae2c38c7a4d328f6acb981a6f  astroberry-1.0.20170505.img.xz
 f9a753d2c48d713d709cf31345b56c9e9769ffedcbb1b463f8e4b22298f9f6a1  astroberry-1.0.20170505.img
+```
 
 Unpack the image file and flash your microSD card (minimum 16GB required) with it:
 ```
