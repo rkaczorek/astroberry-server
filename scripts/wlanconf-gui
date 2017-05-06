@@ -1,0 +1,83 @@
+#!/bin/bash
+#
+# astroberry wlan0 configuration script
+# Author: Radek Kaczorek, rkaczorek AT gmail DOT com
+# License: GPL 3.0
+
+if [[ $EUID -ne 0 ]]; then
+   zenity --error --text="This script must be run as root" 2>/dev/null
+   exit 1
+fi
+
+INPUT=$(zenity --forms --title="Configure WLAN" \
+	--text="Enter information about WLAN network." \
+	--separator="," \
+	--add-entry="Network name" \
+	--add-password="Password" 2>/dev/null)
+
+SSID=$(awk -F, '{print $1}' <<<$INPUT)
+PSK=$(awk -F, '{print $2}' <<<$INPUT)
+
+if [ -z "$SSID" ] || [ -z "$PSK" ]; then
+    zenity --error --text="\nYou must enter your network name and password." 2>/dev/null
+    exit 1
+fi
+
+if [ -f /etc/wpa_supplicant/wpa_supplicant.conf ]; then
+   if [ $(grep ssid /etc/wpa_supplicant/wpa_supplicant.conf | grep "$SSID" | wc -l) != 0 ]; then
+       zenity --info --text="Configuration for this network already exist." 2>/dev/null
+       exit 1
+   fi
+   cp /etc/wpa_supplicant/wpa_supplicant.conf /etc/wpa_supplicant/wpa_supplicant.conf.bak
+   cat >> /etc/wpa_supplicant/wpa_supplicant.conf << EOF
+network={
+ssid="$SSID"
+psk="$PSK"
+}
+ 
+EOF
+else
+   cat > /etc/wpa_supplicant/wpa_supplicant.conf << EOF
+ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
+update_config=1
+
+network={
+ssid="$SSID"
+psk="$PSK"
+}
+ 
+EOF
+fi
+
+# restart wlan0 interface if new configuration is written
+ifdown wlan0 > /dev/null 2>&1
+sleep 3
+
+( ifup wlan0 > /dev/null 2>&1 ) & pid=$!
+( sleep 30 && kill -HUP $pid ) 2>/dev/null & watcher=$!
+if wait $pid 2>/dev/null; then
+   pkill -HUP -P $watcher
+   zenity --info --text="You are now connected to $(iwgetid -r)" 2>/dev/null
+   rm -rf /etc/wpa_supplicant/wpa_supplicant.conf.bak
+   exit 0
+else
+   zenity --error --text="\nError connecting to $SSID.\nCheck your network name and password." 2>/dev/null
+   if [ -f /etc/wpa_supplicant/wpa_supplicant.conf.bak ] ; then
+      mv /etc/wpa_supplicant/wpa_supplicant.conf.bak /etc/wpa_supplicant/wpa_supplicant.conf
+   else
+      rm /etc/wpa_supplicant/wpa_supplicant.conf
+   fi
+
+   ifdown wlan0 > /dev/null 2>&1
+   sleep 3
+
+   ( ifup wlan0 > /dev/null 2>&1 ) & pid=$!
+   ( sleep 30 && kill -HUP $pid ) 2>/dev/null & watcher=$!
+   if wait $pid 2>/dev/null; then
+      pkill -HUP -P $watcher
+      zenity --info --text="You are now connected to $(iwgetid -r)" 2>/dev/null
+      exit 0
+   fi
+   zenity --error --text="\nError connecting to wireless network" 2>/dev/null
+   exit 1
+fi
