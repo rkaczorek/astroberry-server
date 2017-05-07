@@ -1,0 +1,15 @@
+Version 1.0.1
+================
+
+Additions:
+- astroberry-update script for updating vital functions of Astroberry Server
+
+Fixes:
+- fix to aprename script to change access point name
+- fix to appass script to change password to your astroberry access point
+
+
+Version 1.0.0
+================
+
+Initial release of Astroberry Server
