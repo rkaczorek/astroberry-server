@@ -1,0 +1,151 @@
+#!/bin/bash
+#
+# astroberry wlan0 configuration script
+# Author: Radek Kaczorek, rkaczorek AT gmail DOT com
+# License: GPL 3.0
+
+latest=1.0.2
+
+if [[ $EUID -ne 0 ]]; then
+   echo "This script must be run as root"
+   exit 1
+fi
+
+function 1.0.1 {
+   echo "Upgrading to version 1.0.2..."
+
+   # remove old phd2
+   rm -rf /home/astroberry/Desktop/PHD2.desktop
+   rm -rf /home/astroberry/.local/share/applications/mozo-made.desktop
+   rm -rf /opt/phd2
+
+   # add phd2 from repo
+   add-apt-repository -y ppa:pch/phd2 > /dev/null 2>&1
+   apt-get update > /dev/null
+   apt-get -y install phd2 phdlogview > /dev/null
+
+   cat >> /home/astroberry/Desktop/PHD2.desktop << EOF
+[Desktop Entry]
+Version=1.0
+Encoding=UTF-8
+Name=PHD2
+Comment=PHD Guiding, auto-guiding of your telescope
+Exec=phd2
+Icon=phd2
+Terminal=false
+Type=Application
+Categories=Education;Science;Astronomy
+GenericName=PHD2
+EOF
+
+   chown astroberry.astroberry /home/astroberry/Desktop/PHD2.desktop
+
+   cat >> /usr/share/applications/phd2viewer.desktop << EOF
+[Desktop Entry]
+Version=1.0
+Encoding=UTF-8
+Name=PHD2 Log Viewer
+Comment=PHD2 Log Viewer
+Exec=phdlogview
+Icon=phd2
+Terminal=false
+Type=Application
+Categories=Education;Science;Astronomy
+GenericName=PHD2 Log Viewer
+EOF
+
+   # fix phd name
+   sed -i "s/Name=phd2/Name=PHD2/g" /usr/share/applications/phd2.desktop
+   sed -i "s/GenericName=phd2/GenericName=PHD2/g" /usr/share/applications/phd2.desktop
+
+   # change hostname
+   sed -i "s/^astroberry$/astroberry.local/g" /etc/hostname
+
+   # change hosts
+   sed -i "s/^127.0.1.1\tastroberry$/127.0.1.1\tastroberry.local astroberry/g" /etc/hosts
+
+   # update novnc configuration
+   rm -rf /opt/noVNC/self.pem
+   wget -P /opt/noVNC/ -N -q https://github.com/rkaczorek/noVNC/raw/master/astroberry.crt
+   wget -P /opt/noVNC/ -N -q https://github.com/rkaczorek/noVNC/raw/master/server.pem
+   sed -i "s/--ssl-only/--ssl-only --cert \/opt\/noVNC\/server.pem/g" /etc/systemd/system/novnc.service
+   systemctl daemon-reload > /dev/null
+   systemctl restart novnc.service > /dev/null
+
+   # update own packages
+   wget -P /tmp/ -N -q https://github.com/rkaczorek/astroberry-piface/raw/master/binaries/astroberry-piface_2.0.2-2_armhf.deb
+   wget -P /tmp/ -N -q https://github.com/rkaczorek/astroberry-piface-cad/raw/master/binaries/astroberry-piface-cad_2.0.0-1_armhf.deb
+   wget -P /tmp/ -N -q https://github.com/rkaczorek/astroberry-altimu/raw/master/binaries/astroberry-altimu_1.1.0-1_armhf.deb
+   wget -P /tmp/ -N -q https://github.com/rkaczorek/indi-jolohub/raw/master/binaries/indi-jolohub_0.2.0-1_armhf.deb
+   dpkg -i /tmp/astroberry-piface_2.0.2-2_armhf.deb > /dev/null
+   dpkg -i /tmp/astroberry-piface-cad_2.0.0-1_armhf.deb > /dev/null
+   dpkg -i /tmp/astroberry-altimu_1.1.0-1_armhf.deb > /dev/null
+   dpkg -i /tmp/indi-jolohub_0.2.0-1_armhf.deb > /dev/null
+   rm -rf /tmp/astroberry-piface_2.0.2-2_armhf.deb
+   rm -rf /tmp/astroberry-piface-cad_2.0.0-1_armhf.deb
+   rm -rf /tmp/astroberry-altimu_1.1.0-1_armhf.deb
+   rm -rf /tmp/indi-jolohub_0.2.0-1_armhf.deb
+
+   # install planetary imager
+   wget -P /tmp/ -N -q https://github.com/rkaczorek/astroberry-server/raw/master/aliens/PlanetaryImager-0.6.2-Linux-armv7_ubuntu-16.04.deb
+   dpkg --force overwrite -i /tmp/PlanetaryImager-0.6.2-Linux-armv7_ubuntu-16.04.deb > /dev/null
+   rm -rf /tmp/PlanetaryImager-0.6.2-Linux-armv7_ubuntu-16.04.deb
+   sed -i "s/Categories=Science;Graphics/Categories=Education;Science;Astronomy/g" /usr/share/applications/planetary_imager.desktop
+   cat >> /home/astroberry/Desktop/planetary_imager.desktop << EOF
+[Desktop Entry]
+Type=Application
+Version=0.6.2
+Name=Planetary Imager
+Comment=Astronomy Planetary Imager, designed for speed and usability
+Exec=planetary_imager
+Icon=/usr/share/icons/hicolor/32x32/apps/planetary_imager.png
+Terminal=false
+Categories=Education;Science;Astronomy
+GenericName=Planetary Imager
+EOF
+
+   chown astroberry.astroberry /home/astroberry/Desktop/planetary_imager.desktop
+
+   # set new version
+   version=1.0.2
+   echo "Your system has been upgraded to version $version"
+   echo "$version" > /etc/astroberry.version
+   if [ "$version" == "$latest" ]; then
+      echo "Your system is up to date."
+      exit 0
+   else
+      "$version"
+   fi
+}
+
+function 1.0.2 {
+   echo "Upgrading to version 1.0.3..."
+   # set new version
+   version=1.0.3
+   echo "Your system has been upgraded to version $version"
+   echo "$version" > /etc/astroberry.version
+   if [ "$version" == "$latest" ]; then
+      echo "Your system is up to date."
+      exit 0
+   else
+      "$version"
+   fi
+}
+
+if [ -f /etc/astroberry.version ]; then
+   version=$(cat /etc/astroberry.version)
+else
+   version=1.0.1
+fi
+
+if [ "$version" == "$latest" ]; then
+   echo "Your system is up to date."
+   exit 0
+else
+   echo "Your system version is $version and the latest version is $latest"
+   read -p "Do you want to upgrade your system (y/n)? " upg
+   if [ "$upg" != "y" ]; then
+      exit 0
+   fi
+   "$version"
+fi
