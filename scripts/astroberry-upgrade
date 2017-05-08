@@ -110,7 +110,8 @@ EOF
    # set new version
    version=1.0.2
    echo "Your system has been upgraded to version $version"
-   sed -i "s/Version 1.0.1/Version 1.0.2/g" /opt/noVNC/index.html
+   sed -i "s/>Version 1.0</>Version 1.0.1</g" /opt/noVNC/index.html
+   sed -i "s/>Version 1.0.1</>Version 1.0.2</g" /opt/noVNC/index.html
    echo "$version" > /etc/astroberry.version
    if [ "$version" == "$latest" ]; then
       echo "Your system is up to date."
@@ -125,7 +126,7 @@ function 1.0.2 {
    # set new version
    version=1.0.3
    echo "Your system has been upgraded to version $version"
-   sed -i "s/Version 1.0.2/Version 1.0.3/g" /opt/noVNC/index.html
+   sed -i "s/>Version 1.0.2</>Version 1.0.3</g" /opt/noVNC/index.html
    echo "$version" > /etc/astroberry.version
    if [ "$version" == "$latest" ]; then
       echo "Your system is up to date."
