@@ -41,9 +41,17 @@ Note: When accessing Astroberry Server with your browser for the first time you 
 There's no risk involved and the reason is that the system uses self-signed SSL certificate which needs to be
 accepted by your browser. You need to do it once. Just add permanent exception when prompted by a browser.
 
+# How to update and upgrade
+Run astroberry-update for checking new system version and updating vital system components. Next run astroberry-upgrade to upgrade the system to the latest version.
+
+The above procedure updates only Astroberry Server components and works independently from regular operating system update and upgrade.
+
+To upgrade your operating system run apt-get, aptitude or Software Updater.
+
 # How to reconfigure it?
 You can use it as any Ubuntu system, however there are some mission critical parameters to be configured by
 embedded scripts i.e.
+- astroberry-upgrade - to upgrade Astroberry Server version
 - astroberry-update - to update Astroberry Server scripts
 - aprename - to change access point name from astroberry to whatever you want
 - appass - to change password to your astroberry access point
