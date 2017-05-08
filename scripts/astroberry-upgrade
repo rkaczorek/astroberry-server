@@ -39,6 +39,7 @@ GenericName=PHD2
 EOF
 
    chown astroberry.astroberry /home/astroberry/Desktop/PHD2.desktop
+   chmod 755 /home/astroberry/Desktop/PHD2.desktop
 
    cat >> /usr/share/applications/phd2viewer.desktop << EOF
 [Desktop Entry]
@@ -106,6 +107,7 @@ GenericName=Planetary Imager
 EOF
 
    chown astroberry.astroberry /home/astroberry/Desktop/planetary_imager.desktop
+   chmod 755 /home/astroberry/Desktop/planetary_imager.desktop
 
    # set new version
    version=1.0.2
