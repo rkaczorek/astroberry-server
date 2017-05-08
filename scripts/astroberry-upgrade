@@ -87,6 +87,7 @@ EOF
    rm -rf /tmp/indi-jolohub_0.2.0-1_armhf.deb
 
    # install planetary imager
+   apt-get -y install libopencv-highgui2.4v5 > /dev/null
    wget -P /tmp/ -N -q https://github.com/rkaczorek/astroberry-server/raw/master/aliens/PlanetaryImager-0.6.2-Linux-armv7_ubuntu-16.04.deb
    dpkg --force overwrite -i /tmp/PlanetaryImager-0.6.2-Linux-armv7_ubuntu-16.04.deb > /dev/null
    rm -rf /tmp/PlanetaryImager-0.6.2-Linux-armv7_ubuntu-16.04.deb
