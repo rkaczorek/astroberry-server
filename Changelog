@@ -1,3 +1,17 @@
+Version 1.0.2
+==================
+
+Additions and updates:
+- astroberry-upgrade script for upgrading Astroberry Server
+- Planetary Imager 0.6.2
+- PHD2 custom compilation replaced by precompiled package from Patrick Chevalley's repository
+- Updates to astroberry-piface (2.0.2-2), astroberry-piface-cad (2.0.0-1), astroberry-altimu (1.1.0-1), indi-jolohub (0.2.0-1) 
+
+Fixes:
+- noVNC SSL secure connection reengineered to fix issues with Apple devices (iPod/iPhone/iPad/OSX)
+- hostname changed from astroberry to astroberry.local for compatibility
+
+
 Version 1.0.1
 ================
 
