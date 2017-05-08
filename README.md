@@ -20,7 +20,7 @@ Due to github does not allow keeping files over 100MB the image is stored on Goo
 
 Download the image file from https://drive.google.com/open?id=0B8iZo4LMCyr6NnJXZFA3TUxKamc
 
-Confirm SHA256 checksums in SHA256SUMS file for packed and unpacked image files to ensure that
+Confirm SHA256 checksums in [SHA256SUMS](https://github.com/rkaczorek/astroberry-server/blob/master/SHA256SUMS) file for packed and unpacked image files to ensure that
 they are not corrupted during download.
 
 Unpack the image file and flash your microSD card (minimum 16GB required) with it:
@@ -34,12 +34,10 @@ Note: Replace sdX with your microSD card identifier. Make sure it is correct bef
 It's as simple as this:
 - Start your Raspberry Pi 3 with the flashed microSD card.
 - Connect to a astroberry wireless network (default password is astroberry)
-- Point your browser to https://astroberry.local
+- Point your browser to https://astroberry.local/astroberry.crt to install security certificate in your browser. Before you do it your browser will warn you about
+  unsecure connection. Add temporary exception and install certificate to switch to secure connection. You need to do it once.
+- Point your browser to https://astroberry.local to access Astroberry Server
 - Have fun
-
-Note: When accessing Astroberry Server with your browser for the first time you need to trust its certificate.
-There's no risk involved and the reason is that the system uses self-signed SSL certificate which needs to be
-accepted by your browser. You need to do it once. Just add permanent exception when prompted by a browser.
 
 # How to update and upgrade
 Run astroberry-update for checking new system version and updating vital system components. Next run astroberry-upgrade to upgrade the system to the latest version.
