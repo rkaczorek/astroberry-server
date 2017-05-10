@@ -3,6 +3,7 @@
 # astroberry server update script
 # Author: Radek Kaczorek, rkaczorek AT gmail DOT com
 # License: GPL 3.0
+# Version 1.0.2
 
 URL="https://raw.githubusercontent.com/rkaczorek/astroberry-server/master/scripts"
 DLDIR="/tmp"
@@ -32,26 +33,26 @@ if [ -z "$DF" ]; then
 fi
 
 if [ ! -f /tmp/astroberry-update.lock ]; then
-   echo "Downloading new astroberry-update to /tmp"
+   #echo "Downloading new astroberry-update to /tmp"
    $DL -P /tmp/ -N -q "$URL/astroberry-update"
    chown root.root /tmp/astroberry-update
    chmod 755 /tmp/astroberry-update
-   echo "Comparing new astroberry-update in /tmp to old in /usr/local"
+   #echo "Comparing new astroberry-update in /tmp to old in /usr/local"
    if [ -f "$DSTDIR/astroberry-update" ] && [ $($DF /tmp/astroberry-update "$DSTDIR/astroberry-update"|wc -l) != 0 ]; then
-      echo "Setting lockfile in /tmp"
+      #echo "Setting lockfile in /tmp"
       touch /tmp/astroberry-update.lock
-      echo "Starting new astroberry-update from /tmp"
+      #echo "Starting new astroberry-update from /tmp"
       /tmp/astroberry-update
-      echo "Returning from new astroberry-update"
-      echo "Removing lockfile from /tmp"
+      #echo "Returning from new astroberry-update"
+      #echo "Removing lockfile from /tmp"
       rm -rf /tmp/astroberry-update.lock
       exit 0
    else
-      echo "Removing new astroberry-update from /tmp"
+      #echo "Removing new astroberry-update from /tmp"
       rm -rf /tmp/astroberry-update
    fi
 else
-   echo "Downloading new astroberry-update to /usr/local"
+   #echo "Downloading new astroberry-update to /usr/local"
    $DL -P "$DSTDIR/" -N -q "$URL/astroberry-update"
    chown root.root "$DSTDIR/astroberry-update"
    chmod 755 "$DSTDIR/astroberry-update"
