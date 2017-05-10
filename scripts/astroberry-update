@@ -5,15 +5,15 @@
 # License: GPL 3.0
 
 URL="https://raw.githubusercontent.com/rkaczorek/astroberry-server/master/scripts"
-DLDIR="/tmp/astroberry"
+DLDIR="/tmp"
 DSTDIR="/usr/local/bin"
 DL=$(which wget)
+DF=$(which diff)
 SCRIPTS="apstart
 wlanconf
 wlanconf-gui
 aprename
 appass
-astroberry-update
 astroberry-upgrade"
 
 if [[ $EUID -ne 0 ]]; then
@@ -26,35 +26,44 @@ if [ -z "$DL" ]; then
    exit 1
 fi
 
-echo "Updating Astroberry Server..."
-
-if [ -d "$DLDIR" ]; then
-   rm -rf "$DLDIR"
-fi
-
-mkdir "$DLDIR"
-
-if [ -d "$DLDIR" ]; then
-   cd "$DLDIR"
-else
-   echo "Error creating download directory"
+if [ -z "$DF" ]; then
+   echo "You need to install diff to use this script."
    exit 1
 fi
 
-# download files
-for f in $SCRIPTS; do
-   $DL -q "$URL/$f"
-done
+if [ ! -f /tmp/astroberry-update.lock ]; then
+   echo "Downloading new astroberry-update to /tmp"
+   $DL -P /tmp/ -N -q "$URL/astroberry-update"
+   chown root.root /tmp/astroberry-update
+   chmod 755 /tmp/astroberry-update
+   echo "Comparing new astroberry-update in /tmp to old in /usr/local"
+   if [ -f "$DSTDIR/astroberry-update" ] && [ $($DF /tmp/astroberry-update "$DSTDIR/astroberry-update"|wc -l) != 0 ]; then
+      echo "Setting lockfile in /tmp"
+      touch /tmp/astroberry-update.lock
+      echo "Starting new astroberry-update from /tmp"
+      /tmp/astroberry-update
+      echo "Returning from new astroberry-update"
+      echo "Removing lockfile from /tmp"
+      rm -rf /tmp/astroberry-update.lock
+      exit 0
+   else
+      echo "Removing new astroberry-update from /tmp"
+      rm -rf /tmp/astroberry-update
+   fi
+else
+   echo "Downloading new astroberry-update to /usr/local"
+   $DL -P "$DSTDIR/" -N -q "$URL/astroberry-update"
+   chown root.root "$DSTDIR/astroberry-update"
+   chmod 755 "$DSTDIR/astroberry-update"
+fi
 
-# copy files to destination and set ownership and permissions
-for f in $(ls); do
-   cp "$f" "$DSTDIR"
+echo "Updating Astroberry Server..."
+
+for f in $SCRIPTS; do
+   $DL -P "$DSTDIR/" -N -q "$URL/$f"
    chown root.root "$DSTDIR/$f"
    chmod 755 "$DSTDIR/$f"
 done
-
-# remove leftovers
-rm -rf $DLDIR
 
 echo "Astroberry Server updated successfully"
 

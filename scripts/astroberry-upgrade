@@ -11,6 +11,11 @@ if [[ $EUID -ne 0 ]]; then
    exit 1
 fi
 
+if [ -z "$DL" ]; then
+   echo "You need to install wget to use this script."
+   exit 1
+fi
+
 function 1.0.1 {
    echo "Upgrading to version 1.0.2..."
 
