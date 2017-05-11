@@ -9,14 +9,17 @@ if [[ $EUID -ne 0 ]]; then
    exit 1
 fi
 
+NETWORKS=$(iwlist wlan0 scanning|grep ESSID|awk -F: '{print $2}'|sed 's/^"//g'|tr -d '\n'|sed 's/"/\|/g')
+
 INPUT=$(zenity --forms --title="Configure WLAN" \
 	--text="Enter information about WLAN network." \
 	--separator="," \
-	--add-entry="Network name" \
+	--add-list="Network name" \
+	--list-values="${NETWORKS[@]}" \
 	--add-password="Password" 2>/dev/null)
 
 SSID=$(awk -F, '{print $1}' <<<$INPUT)
-PSK=$(awk -F, '{print $2}' <<<$INPUT)
+PSK=$(awk -F, '{print $3}' <<<$INPUT)
 
 if [ -z "$SSID" ] || [ -z "$PSK" ]; then
     zenity --error --text="\nYou must enter your network name and password." 2>/dev/null
