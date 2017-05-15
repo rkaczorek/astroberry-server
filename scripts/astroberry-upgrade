@@ -323,16 +323,6 @@ img {margin-right: 15px;}
 </html>
 EOF
 
-   cat >> /etc/nginx/sites-available/default << EOF
-server {
-	listen 443 ssl default_server;
-	listen [::]:443 ssl default_server;
-	ssl_certificate /opt/noVNC/server.pem;
-	ssl_certificate_key /opt/noVNC/server.pem;
-	root /var/www/html;
-}
-EOF
-
    systemctl restart nginx > /dev/null
 
    # set new version
