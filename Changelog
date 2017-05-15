@@ -1,3 +1,18 @@
+Version 1.0.3
+==================
+
+Additions and updates:
+- update Planetary Imager to version 0.6.97
+- Skychart / Cartes du Ciel added (no additional catalogs installed)
+- INDI Web Manager added and integrated with noVNC
+- Nginx reverse proxy added for noVNC (https://astroberry.local/desktop/) and INDI Web Manager (https://astroberry.local/webmanager/)
+- Welcome page added (http://astroberry.local)
+
+Fixes:
+- improve wlan-conf gui to display the availables SSID
+
+
+
 Version 1.0.2
 ==================
 
