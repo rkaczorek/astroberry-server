@@ -108,7 +108,7 @@ EOF
    echo "Installing Planetary Imager..."
    apt-get -y install libopencv-highgui2.4v5 > /dev/null
    $DL -P /tmp/ -N -q https://github.com/rkaczorek/astroberry-server/raw/master/aliens/PlanetaryImager-0.6.2-Linux-armv7_ubuntu-16.04.deb
-   dpkg --force overwrite -i /tmp/PlanetaryImager-0.6.2-Linux-armv7_ubuntu-16.04.deb 2>&1 > /dev/null
+   dpkg --force overwrite -i /tmp/PlanetaryImager-0.6.2-Linux-armv7_ubuntu-16.04.deb > /dev/null 2>&1
    rm -rf /tmp/PlanetaryImager-0.6.2-Linux-armv7_ubuntu-16.04.deb
    sed -i "s/Categories=Science;Graphics/Categories=Education;Science;Astronomy/g" /usr/share/applications/planetary_imager.desktop
    cat >> /home/astroberry/Desktop/planetary_imager.desktop << EOF
