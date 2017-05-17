@@ -59,10 +59,10 @@ embedded scripts i.e.
 It's always astroberry:
 - For SSH access run: ssh astroberry@astroberry.local
 - For VNC access use astroberry.local:5900 for server and astroberry for username and password
-- For your browser access use https://astroberry.local for server and astroberry for password
+- For your browser access use http://astroberry.local/ or https://astroberry.local/desktop/ for server and astroberry for password
 
-In case of any issue accessing astroberry.local just use 192.168.10.1 after connecting to astroberry access point or
-your home network access after connecting to your wireless home network.
+In case of any issue accessing astroberry.local just use 192.168.10.1 after connecting to astroberry VAP or
+your home network IP address after connecting to your wireless home network.
 
 # Issues
 File any issues on https://github.com/rkaczorek/astroberry-server
