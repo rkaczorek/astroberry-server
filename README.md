@@ -18,7 +18,7 @@ The system features:
 # How to start?
 Due to github does not allow keeping files over 100MB the image is stored on Google Drive.
 
-Download the image file from https://drive.google.com/open?id=0B8iZo4LMCyr6NnJXZFA3TUxKamc
+Download the image file from https://drive.google.com/open?id=0B8iZo4LMCyr6c2VQWUJHdTRZbVU
 
 Confirm SHA256 checksums in [SHA256SUMS](https://github.com/rkaczorek/astroberry-server/blob/master/SHA256SUMS) file for packed and unpacked image files to ensure that
 they are not corrupted during download.
