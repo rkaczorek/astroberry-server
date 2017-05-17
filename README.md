@@ -34,9 +34,8 @@ Note: Replace sdX with your microSD card identifier. Make sure it is correct bef
 It's as simple as this:
 - Start your Raspberry Pi 3 with the flashed microSD card.
 - Connect to a astroberry wireless network (default password is astroberry)
-- Point your browser to https://astroberry.local/astroberry.crt to install security certificate in your browser. Before you do it your browser will warn you about
-  unsecure connection. Add temporary exception and install certificate to switch to secure connection. You need to do it once.
-- Point your browser to https://astroberry.local to access Astroberry Server
+- Point your browser to http://astroberry.local and follow the instructions to install security certificate
+- Point your browser to https://astroberry.local/desktop/ to access Astroberry Server
 - Have fun
 
 # How to update and upgrade
@@ -49,8 +48,8 @@ To upgrade your operating system run apt-get, aptitude or Software Updater.
 # How to reconfigure it?
 You can use it as any Ubuntu system, however there are some mission critical parameters to be configured by
 embedded scripts i.e.
-- astroberry-upgrade - to upgrade Astroberry Server version
 - astroberry-update - to update Astroberry Server scripts
+- astroberry-upgrade - to upgrade Astroberry Server version
 - aprename - to change access point name from astroberry to whatever you want
 - appass - to change password to your astroberry access point
 - wlanconf - to configure and connect Astroberry Server to your home wireless network
