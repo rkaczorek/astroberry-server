@@ -156,7 +156,7 @@ function 1.0.2 {
    cp /usr/share/applications/planetary_imager.desktop /home/astroberry/Desktop/planetary_imager.desktop
    chown astroberry.astroberry /home/astroberry/Desktop/planetary_imager.desktop
    chmod 775 /home/astroberry/Desktop/planetary_imager.desktop
-   apt-get-y  install libqhy > /dev/null
+   apt-get -y  install libqhy > /dev/null
 
    # install skychart / cartes du ciel
    echo "Installing Skychart/Cartes du Ciel..."
