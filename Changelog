@@ -1,3 +1,16 @@
+Version 1.0.4
+==================
+
+Additions and updates:
+- GPS panel (https://github.com/rkaczorek/gpspanel) added and integrated with noVNC
+- zram swap added for performance improvement
+- INDI Web Manager styles updated
+- Nginx reverse proxy updated for GPS panel (https://astroberry.local/gpsd/)
+- Welcome page updated to be accessible over secure connection (https://astroberry.local)
+
+Fixes:
+- NTP server not starting at boot - NTP server set preferred over timesyncd
+
 Version 1.0.3
 ==================
 
@@ -10,7 +23,6 @@ Additions and updates:
 
 Fixes:
 - wlanconf-gui updated to display available networks
-
 
 
 Version 1.0.2

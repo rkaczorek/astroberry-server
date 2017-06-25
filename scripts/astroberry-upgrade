@@ -4,10 +4,15 @@
 # Author: Radek Kaczorek, rkaczorek AT gmail DOT com
 # License: GPL 3.0
 
-latest=1.0.3
+latest=1.0.4
 
 if [[ $EUID -ne 0 ]]; then
    echo "This script must be run as root"
+   exit 1
+fi
+
+if ! ping -c 1 github.com >> /dev/null 2>&1; then
+   echo "You need to have working Internet connection to run this script."
    exit 1
 fi
 
@@ -342,10 +347,266 @@ EOF
 
 function 1.0.3 {
    echo "Upgrading to version 1.0.4..."
+
+   # setting up zram swap
+   echo "Setting up zram swap..."
+   cat >> /etc/udev/rules.d/10-zram.rules << EOF
+KERNEL=="zram0", SUBSYSTEM=="block", DRIVER=="", ACTION=="add", ATTR{disksize}=="0", ATTR{disksize}="100M", RUN+="/sbin/mkswap \$env{DEVNAME}"
+EOF
+
+   echo "zram" >> /etc/modules
+   echo -e "/dev/zram0\tswap\t\tswap\tpri=16283\t0\t0" >> /etc/fstab
+   modprobe zram
+   
+   # setup filesystem check every 10 mounts
+   tune2fs -c 10 /dev/mmcblk0p2 > /dev/null
+   
+   # setup autorepair filesystem during boot
+   sed -i "s/\#FSCKFIX=no/FSCKFIX=yes/g" /etc/default/rcS
+   
+   # install gpspanel
+   echo "Installing GPS panel (DO NOT interrupt this operation! It might take several minutes to complete)..."
+   apt-get -y install python-gps python-pip > /dev/null
+   pip install Flask Flask-SocketIO gevent Pillow > /dev/null 2>&1
+   $GIT clone -q https://github.com/rkaczorek/gpspanel.git /opt/gpspanel
+   chown astroberry.astroberry -R /opt/gpspanel
+   cat >> /etc/systemd/system/gpspanel.service << EOF
+[Unit]
+Description=GPS Panel
+After=multi-user.target
+
+[Service]
+Type=idle
+User=astroberry
+ExecStart=/usr/bin/python /opt/gpspanel/gpspanel.py
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
+EOF
+
+   chown root.root /etc/systemd/system/gpspanel.service
+   chmod 644 /etc/systemd/system/gpspanel.service
+   systemctl daemon-reload > /dev/null
+   sudo systemctl enable gpspanel.service > /dev/null 2>&1
+   systemctl start gpspanel.service > /dev/null
+
+   # update webmanager
+   echo "Updating INDI Web Manager..."
+   $GIT clone -q https://github.com/rkaczorek/indiwebmanager.git /tmp/indiwebmanager
+   cp -R /tmp/indiwebmanager/servermanager/views/css/schoolhouse.css /opt/servermanager/views/css/
+   rm -rf /tmp/indiwebmanager
+   chown astroberry.astroberry -R /opt/servermanager
+   systemctl restart indiwebmanager.service > /dev/null
+
+   # update index.html
+   echo "Updating Welcome page..."
+   mkdir /var/www/html/files
+   mv /var/www/html/adequate.extra-light.ttf /var/www/html/files/
+   mv /var/www/html/astroberry.crt /var/www/html/files/
+   mv /var/www/html/background.jpg /var/www/html/files/
+   mv /var/www/html/indi_logo.png /var/www/html/files/
+   mv /var/www/html/novnc-48x48.png /var/www/html/files/
+   mv /var/www/html/raspberry-pi-logo.png /var/www/html/files/
+   mv /var/www/html/ubuntu-logo14.png /var/www/html/files/
+   rm /var/www/html/index.html
+   cat >> /var/www/html/index.html << EOF
+<!DOCTYPE html>
+<html>
+<head>
+<title>Welcome to Astroberry Server!</title>
+<style>
+@font-face {font-family: 'Adequate Extra Light';font-style: normal;src: local('?'), url('/files/adequate.extra-light.ttf') format('truetype');}
+body {margin:0;padding:0;background-image: url("/files/background.jpg");background-repeat:no-repeat;background-position: center -63px;font-family: 'Adequate Extra Light', Arial, Helvetica;color: #fff;}
+html {height:100%;}
+#welcome {display: block;background-color: rgba(0, 0, 0, 0.6);width: 50%;margin: 100px auto;border: 1px #333 solid;border-radius: 10px;padding: 20px;}
+a {color: #fff;font-weight: bold;text-decoration: none;}
+a:visited {color: #fff;font-weight: bold;text-decoration: none;}
+img {margin-right: 15px;}
+</style>
+</head>
+<body>
+<div id="welcome">
+<h1>Welcome to Astroberry Server!</h1>
+<p>Astroberry Server is a ready to use astronomy desktop system for Raspberry Pi 3<br>It is a standalone system for controlling astronomy equipment supported by INDI server.</p>
+<p>To get started follow the instructions below:</p>
+<ul>
+<li>Install and trust security certificate in your browser by clicking <a href="/files/astroberry.crt">this link</a></li>
+<li>Go to <a href="https://astroberry.local/desktop/">https://astroberry.local/desktop/</a> or <a href="https://192.168.10.1/desktop/">https://192.168.10.1/desktop/</a></li>
+<li>Connect to a wireless network by clicking WLAN icon on top taskbar (optional)
+<li>Enjoy!
+</ul>
+<div>
+<a style="display:inline-block;vertical-align:top;margin:20px 10px 0 0;font-weight:normal;">Powered by</a>
+<a href="https://www.raspberrypi.org/" target="_blank"><img src="/files/raspberry-pi-logo.png" width="5%" height="5%" /></a>
+<a href="https://www.ubuntu.com/" target="_blank"><img src="/files/ubuntu-logo14.png" width="10%" height="10%" /></a>
+<a href="http://indilib.org/" target="_blank"><img src="/files/indi_logo.png" width="5%" height="5%" /></a>
+<a href="https://kanaka.github.io/noVNC/" target="_blank"><img src="/files/novnc-48x48.png" width="5%" height="5%" /></a>
+<a style="display:inline-block;float:right;margin:50px 0 0 0;font-size:0.6em;font-weight:normal;" href="https://github.com/rkaczorek/astroberry-server" target="_blank">Project site</a>
+</div>
+</div>
+</body>
+</html>
+EOF
+
+   # update nginx
+   echo "Updating noVNC..."
+   rm /etc/nginx/sites-available/astroberry
+   cat >> /etc/nginx/sites-available/astroberry << EOF
+upstream root {
+    server 127.0.0.1:80;
+}
+
+upstream novnc {
+    server 127.0.0.1:8080;
+}
+
+upstream indiwebmanager {
+    server 127.0.0.1:8624;
+}
+
+upstream gpspanel {
+    server 127.0.0.1:8625;
+}
+
+server {
+    listen 443;
+
+    ssl_certificate           /opt/noVNC/server.pem;
+    ssl_certificate_key       /opt/noVNC/server.pem;
+
+    ssl on;
+    ssl_session_cache  builtin:1000  shared:SSL:10m;
+    ssl_protocols  TLSv1 TLSv1.1 TLSv1.2;
+    ssl_ciphers HIGH:!aNULL:!eNULL:!EXPORT:!CAMELLIA:!DES:!MD5:!PSK:!RC4;
+    ssl_prefer_server_ciphers on;
+
+    access_log            /var/log/astroberry.access.log;
+    error_log             /var/log/astroberry.error.log;
+
+    ########### root WWW block ########## 
+
+    location /index.html {
+       proxy_http_version  1.1;
+       proxy_pass          http://root/;
+       proxy_set_header    Upgrade \$http_upgrade;
+       proxy_set_header    Connection "upgrade";
+    }
+
+    location /files {
+       proxy_http_version  1.1;
+       proxy_pass          http://root/files/;
+       proxy_set_header    Upgrade \$http_upgrade;
+       proxy_set_header    Connection "upgrade";
+    }
+
+    ########### noVNC block ##########
+
+    location /desktop/ {
+       proxy_http_version  1.1;
+       proxy_pass          http://novnc/;
+       proxy_set_header    Upgrade \$http_upgrade;
+       proxy_set_header    Connection "upgrade";
+    }
+
+    location /websockify {
+        proxy_http_version 1.1;
+        proxy_pass http://novnc/;
+        proxy_set_header Upgrade \$http_upgrade;
+        proxy_set_header Connection "upgrade";
+        proxy_read_timeout 90;
+        proxy_buffering off;
+    }
+
+    ########### INDI webmanager block ########## 
+
+    location /webmanager/ {
+       proxy_http_version  1.1;
+       proxy_pass          http://indiwebmanager/;
+       proxy_set_header    Upgrade \$http_upgrade;
+       proxy_set_header    Connection "upgrade";
+       proxy_read_timeout  90;
+       proxy_buffering     off;
+    }
+
+    location /static/ {
+       proxy_http_version  1.1;
+       proxy_pass          http://indiwebmanager/static/;
+       proxy_set_header    Upgrade \$http_upgrade;
+       proxy_set_header    Connection "upgrade";
+    }
+
+    location /api/ {
+       proxy_http_version  1.1;
+       proxy_pass          http://indiwebmanager/api/;
+       proxy_set_header    Upgrade \$http_upgrade;
+       proxy_set_header    Connection "upgrade";
+    }
+
+    ########### GPS panel block ########## 
+
+    location /gpsd/ {
+       proxy_http_version  1.1;
+       proxy_pass          http://gpspanel/;
+       proxy_set_header    Upgrade \$http_upgrade;
+       proxy_set_header    Connection "upgrade";
+       proxy_read_timeout  90;
+       proxy_buffering     off;
+    }
+
+    location /assets/ {
+       proxy_http_version  1.1;
+       proxy_pass          http://gpspanel/assets/;
+       proxy_set_header    Upgrade \$http_upgrade;
+       proxy_set_header    Connection "upgrade";
+    }
+
+    location /socket.io {
+      proxy_http_version  1.1;
+      proxy_pass          http://gpspanel/socket.io;
+      proxy_set_header    Upgrade \$http_upgrade;
+      proxy_set_header    Connection "upgrade";
+      proxy_read_timeout  90;
+      proxy_buffering     off;
+    }
+}
+EOF
+   
+   # update noVNC
+   cd /opt/noVNC
+   $GIT stash -q
+   $GIT pull -q
+   systemctl stop novnc.service
+   chown astroberry.astroberry -R /opt/noVNC
+   systemctl start novnc.service > /dev/null
+
+   # fix ntpd
+   echo "Fixing NTP..."
+   systemctl stop prefer-timesyncd.service > /dev/null
+   systemctl disable prefer-timesyncd.service > /dev/null 2>&1
+   chmod 755 /usr/sbin/ntpd
+   systemctl restart ntp.service > /dev/null
+
    # set new version
    version=1.0.4
    echo "Your system has been upgraded to version $version"
    sed -i "s/>Version 1.0.3</>Version 1.0.4</g" /opt/noVNC/index.html
+   echo "$version" > /etc/astroberry.version
+   if [ "$version" == "$latest" ]; then
+      echo "Your system is up to date."
+      exit 0
+   else
+      "$version"
+   fi
+}
+
+function 1.0.4 {
+   echo "Upgrading to version 1.0.4..."
+   # set new version
+   version=1.0.5
+   echo "Your system has been upgraded to version $version"
+   sed -i "s/>Version 1.0.4</>Version 1.0.5</g" /opt/noVNC/index.html
    echo "$version" > /etc/astroberry.version
    if [ "$version" == "$latest" ]; then
       echo "Your system is up to date."
