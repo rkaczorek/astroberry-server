@@ -18,15 +18,14 @@ The system features:
 # How to start?
 Due to github does not allow keeping files over 100MB the image is stored on Google Drive.
 
-Download the image file from https://drive.google.com/open?id=0B8iZo4LMCyr6c2VQWUJHdTRZbVU
+Download the image file from https://drive.google.com/open?id=0B8iZo4LMCyr6NjNXYWhsNWNLTEE
 
 Confirm SHA256 checksums in [SHA256SUMS](https://github.com/rkaczorek/astroberry-server/blob/master/SHA256SUMS) file for packed and unpacked image files to ensure that
 they are not corrupted during download.
 
-Unpack the image file and flash your microSD card (minimum 16GB required) with it:
+flash your microSD card (minimum 16GB required) with it:
 ```
-xz -d astroberry-XXX.img.xz
-sudo dd if=astroberry-XXX.img of=/dev/sdX bs=4M
+cat astroberry-XXX.img.xz | sudo dd of=/dev/sdX bs=32M
 ```
 Note: Replace sdX with your microSD card identifier. Make sure it is correct before running the above command!
 
