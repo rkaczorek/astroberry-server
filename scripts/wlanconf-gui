@@ -9,7 +9,7 @@ if [[ $EUID -ne 0 ]]; then
    exit 1
 fi
 
-NETWORKS=$(iwlist wlan0 scanning|grep ESSID|awk -F: '{print $2}'|sed 's/^"//g'|tr -d '\n'|sed 's/"/\|/g')
+NETWORKS=$(iw dev wlan0 scan|grep SSID|awk -F": " '{print $2"|"}'|tr -d '\n')
 
 INPUT=$(zenity --forms --title="Configure WLAN" \
 	--text="Enter information about WLAN network." \
