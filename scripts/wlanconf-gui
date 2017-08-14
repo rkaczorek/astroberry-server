@@ -14,8 +14,8 @@ NETWORKS=$(iw dev wlan0 scan|grep SSID|awk -F": " '{print $2"|"}'|tr -d '\n')
 INPUT=$(zenity --forms --title="Configure WLAN" \
 	--text="Enter information about WLAN network." \
 	--separator="," \
-	--add-list="Network name" \
-	--list-values="${NETWORKS[@]}" \
+	--add-combo="Network name" \
+	--combo-values="${NETWORKS[@]}" \
 	--add-password="Password" 2>/dev/null)
 
 SSID=$(awk -F, '{print $1}' <<<$INPUT)
