@@ -81,7 +81,7 @@ sudo systemctrl restart novnc.service
 sudo systemctrl restart nginx.service
 ```
 
-#FAQ
+# FAQ
 Q: Why I get black screen after logging to Astroberry Server desktop?
 A: The origin of this issue is unknown. Restart your system and try again. If it does not help remove .Xauthority file in your home directory and restart
 
