@@ -27,6 +27,7 @@ if [ -f /etc/wpa_supplicant/wpa_supplicant.conf ] ; then
    cp /etc/wpa_supplicant/wpa_supplicant.conf /etc/wpa_supplicant/wpa_supplicant.conf.bak
    cat >> /etc/wpa_supplicant/wpa_supplicant.conf << EOF
 network={
+scan_ssid=1
 ssid="$SSID"
 psk="$PSK"
 }
@@ -36,8 +37,10 @@ else
    cat > /etc/wpa_supplicant/wpa_supplicant.conf << EOF
 ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
 update_config=1
+country=PL
  
 network={
+scan_ssid=1
 ssid="$SSID"
 psk="$PSK"
 }
@@ -45,37 +48,5 @@ psk="$PSK"
 EOF
 fi
 
-echo "Configuring wireless network..."
+echo "Configuration ready. Restart your system to activate the wireless network"
 
-# restart wlan0 interface if new configuration is written
-ifdown wlan0 > /dev/null 2>&1
-sleep 3
-
-( ifup wlan0 > /dev/null 2>&1 ) & pid=$!
-( sleep 30 && kill -HUP $pid ) 2>/dev/null & watcher=$!
-if wait $pid 2>/dev/null; then
-   pkill -HUP -P $watcher
-   echo "You are now connected to $(iwgetid -r)"
-   rm -rf /etc/wpa_supplicant/wpa_supplicant.conf.bak
-   exit 0
-else
-   echo "Error connecting to $SSID"
-   if [ -f /etc/wpa_supplicant/wpa_supplicant.conf.bak ] ; then
-      mv /etc/wpa_supplicant/wpa_supplicant.conf.bak /etc/wpa_supplicant/wpa_supplicant.conf
-   else
-      rm /etc/wpa_supplicant/wpa_supplicant.conf
-   fi
-
-   ifdown wlan0 > /dev/null 2>&1
-   sleep 3
-
-   ( ifup wlan0 > /dev/null 2>&1 ) & pid=$!
-   ( sleep 30 && kill -HUP $pid ) 2>/dev/null & watcher=$!
-   if wait $pid 2>/dev/null; then
-      pkill -HUP -P $watcher
-      echo "You are now connected to $(iwgetid -r)"
-      exit 0
-   fi
-   echo "Error connecting to wireless network"
-   exit 1
-fi

@@ -1,0 +1,42 @@
+#!/bin/bash
+#
+# astroberry VAP password change script
+# Author: Radek Kaczorek, rkaczorek AT gmail DOT com
+# License: GPL 3.0
+
+if [[ $EUID -ne 0 ]]; then
+   echo "This script must be run as root"
+   exit 1
+fi
+
+echo "Enter your new Virtual Access Point password"
+read -sp "New password:" NEWPSK
+echo
+read -sp "Confirm password:" NEWPSK2
+echo
+
+if [ -z "$NEWPSK" ] || [ -z "$NEWPSK2" ]; then
+   echo "You must enter your Virtual Access Point password!"
+   exit 1
+fi
+
+if [ "$NEWPSK" != "$NEWPSK2" ]; then
+   echo "Your passwords do not match!"
+   exit 1
+fi
+
+if [ -f /etc/hostapd/hostapd.conf ]; then
+    OLDPSK=$(grep wpa_passphrase /etc/hostapd/hostapd.conf|awk -F= '{print $2}')
+    if [ -z "$OLDPSK" ]; then
+       echo "Error changing Virtual Access Point password!"
+       exit 1
+    else
+       sed -i -e "s/wpa_passphrase=$OLDPSK/wpa_passphrase=$NEWPSK/g" /etc/hostapd/hostapd.conf
+       echo "Virtual Access Point password changed successfully. You need to reboot to activate changes."
+       exit 0
+    fi
+else
+    echo "No Virtual Access Point configuration file found!"
+    exit 1
+fi
+

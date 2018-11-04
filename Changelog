@@ -1,3 +1,29 @@
+Version 1.1.0
+==================
+
+Additions and updates:
+- NEW Raspberry Pi 3 B+ support added
+- Operating System updated
+- Welcome page updated to allow for encrypted and unencrypted connection
+- INDI Webmanager updated and new icon added to sliding panel
+- Planetary Imager updated
+- CCDciel software added
+- HNSKY software added
+- Lin-guider software added
+- SER Player software added
+- Astroberry DIY drivers added
+- Operating System tweaks applied
+- Nginx configuration improved
+
+Fixes:
+- Connection not private bug fixed
+- Sliding panel not loading bug fixed
+- System boot partition too small bug fixed
+
+Pending:
+- Black screen over VNC bug
+
+
 Version 1.0.4
 ==================
 

@@ -1,0 +1,38 @@
+#!/bin/bash
+#
+# astroberry wireless connection monitoring script
+# Author: Radek Kaczorek, rkaczorek AT gmail DOT com
+# License: GPL 3.0
+
+if [[ $EUID -ne 0 ]]; then
+   echo "This script must be run as root"
+   exit 1
+fi
+
+i="0"
+
+echo -n "Checking wireless connection"
+
+while [ $i -lt  10 ]
+do
+
+SSID=$(iwgetid | awk -F: '{print $2}'|sed 's/"//g')
+
+if [ "$SSID" != "" ]; then
+	echo
+	echo "Successfuly connected to $SSID"
+	exit
+fi
+
+i=$[$i+1]
+
+echo -n "."
+
+sleep 3
+
+done
+
+echo
+echo "No wireless connection. Falling back to Virtual Access Point"
+astroberry_vap start
+

@@ -9,17 +9,14 @@ if [[ $EUID -ne 0 ]]; then
    exit 1
 fi
 
-NETWORKS=$(iw dev wlan0 scan|grep SSID|awk -F": " '{print $2"|"}'|tr -d '\n')
-
 INPUT=$(zenity --forms --title="Configure WLAN" \
 	--text="Enter information about WLAN network." \
 	--separator="," \
-	--add-combo="Network name" \
-	--combo-values="${NETWORKS[@]}" \
+	--add-entry="Network name" \
 	--add-password="Password" 2>/dev/null)
 
 SSID=$(awk -F, '{print $1}' <<<$INPUT)
-PSK=$(awk -F, '{print $3}' <<<$INPUT)
+PSK=$(awk -F, '{print $2}' <<<$INPUT)
 
 if [ -z "$SSID" ] || [ -z "$PSK" ]; then
     zenity --error --text="\nYou must enter your network name and password." 2>/dev/null
@@ -34,6 +31,7 @@ if [ -f /etc/wpa_supplicant/wpa_supplicant.conf ]; then
    cp /etc/wpa_supplicant/wpa_supplicant.conf /etc/wpa_supplicant/wpa_supplicant.conf.bak
    cat >> /etc/wpa_supplicant/wpa_supplicant.conf << EOF
 network={
+scan_ssid=1
 ssid="$SSID"
 psk="$PSK"
 }
@@ -43,8 +41,10 @@ else
    cat > /etc/wpa_supplicant/wpa_supplicant.conf << EOF
 ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
 update_config=1
+country=PL
 
 network={
+scan_ssid=1
 ssid="$SSID"
 psk="$PSK"
 }
@@ -52,35 +52,4 @@ psk="$PSK"
 EOF
 fi
 
-# restart wlan0 interface if new configuration is written
-ifdown wlan0 > /dev/null 2>&1
-sleep 3
-
-( ifup wlan0 > /dev/null 2>&1 ) & pid=$!
-( sleep 30 && kill -HUP $pid ) 2>/dev/null & watcher=$!
-if wait $pid 2>/dev/null; then
-   pkill -HUP -P $watcher
-   zenity --info --text="You are now connected to $(iwgetid -r)" 2>/dev/null
-   rm -rf /etc/wpa_supplicant/wpa_supplicant.conf.bak
-   exit 0
-else
-   zenity --error --text="\nError connecting to $SSID.\nCheck your network name and password." 2>/dev/null
-   if [ -f /etc/wpa_supplicant/wpa_supplicant.conf.bak ] ; then
-      mv /etc/wpa_supplicant/wpa_supplicant.conf.bak /etc/wpa_supplicant/wpa_supplicant.conf
-   else
-      rm /etc/wpa_supplicant/wpa_supplicant.conf
-   fi
-
-   ifdown wlan0 > /dev/null 2>&1
-   sleep 3
-
-   ( ifup wlan0 > /dev/null 2>&1 ) & pid=$!
-   ( sleep 30 && kill -HUP $pid ) 2>/dev/null & watcher=$!
-   if wait $pid 2>/dev/null; then
-      pkill -HUP -P $watcher
-      zenity --info --text="You are now connected to $(iwgetid -r)" 2>/dev/null
-      exit 0
-   fi
-   zenity --error --text="\nError connecting to wireless network" 2>/dev/null
-   exit 1
-fi
+zenity --info --text="\nConfiguration ready.\nRestart your system to activate the wireless network" 2>/dev/null

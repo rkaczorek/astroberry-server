@@ -1,0 +1,75 @@
+#!/bin/bash
+#
+# astroberry virtual access point configuration script
+# Author: Radek Kaczorek, rkaczorek AT gmail DOT com
+# License: GPL 3.0
+
+if [[ $EUID -ne 0 ]]; then
+   echo "This script must be run as root"
+   exit 1
+fi
+
+REVISION=$(grep Revision /proc/cpuinfo |awk -F: '{print $2}'|sed 's/\ //')
+if [ "$REVISION" == "a02082" ]; then
+	VAPCONF="/etc/hostapd/hostapd_3b.conf"
+elif [ "$REVISION" == "2a020d3" ]; then
+	VAPCONF="/etc/hostapd/hostapd_3bplus.conf"
+else
+	VAPCONF="/etc/hostapd/hostapd.conf"
+fi
+
+function vap_start {
+	if [ "$(grep vap0 /proc/net/dev)" == "" ]; then
+        	echo "Starting Virtual Access Point..."
+	        ifdown wlan0 > /dev/null 2>&1
+        	sleep 3
+		iw dev wlan0 interface add vap0 type __ap > /dev/null 2>&1
+		ifconfig vap0 192.168.10.1 netmask 255.255.255.0 broadcast 192.168.10.255 > /dev/null 2>&1
+		ifconfig vap0 up > /dev/null 2>&1
+		sleep 5
+		hostapd -f /dev/null "$VAPCONF" &
+		sleep 5
+		sysctl net.ipv4.ip_forward=1 > /dev/null 2>&1
+		iptables -t nat -A POSTROUTING -s 192.168.10.0/24 ! -d 192.168.10.0/24 -j MASQUERADE > /dev/null 2>&1
+		service dnsmasq start > /dev/null 2>&1
+		echo "Virtual Access Point STARTED"
+	else
+		echo "Virtual Access Point already STARTED"
+	fi
+}
+
+function vap_stop {
+        if [ "$(grep vap0 /proc/net/dev)" != "" ]; then
+                echo "Stopping Virtual Access Point..."
+		sysctl net.ipv4.ip_forward=0 > /dev/null 2>&1
+		iptables -t nat -D POSTROUTING -s 192.168.10.0/24 ! -d 192.168.10.0/24 -j MASQUERADE > /dev/null 2>&1
+		service dnsmasq stop > /dev/null 2>&1
+		sleep 3
+		pkill -TERM hostapd > /dev/null 2>&1
+		sleep 3
+		ifconfig vap0 down > /dev/null 2>&1
+		sleep 1
+		iw dev vap0 del > /dev/null 2>&1
+		ifup wlan0 > /dev/null 2>&1
+                echo "Virtual Access Point STOPPED"
+        else
+                echo "Virtual Access Point already STOPPED"
+        fi
+}
+
+function vap_status {
+	if [ "$(grep vap0 /proc/net/dev)" == "" ]; then
+		echo "Virtual Access Point STOPPED"
+	else
+		echo "Virtual Access Point STARTED"
+	fi
+}
+
+case "$1" in
+	start) vap_start ;;
+	stop) vap_stop ;;
+	status) vap_status ;;
+	*) echo "Usage: astroberry_vap start|stop|status" >&2
+	   exit 1
+	   ;;
+esac

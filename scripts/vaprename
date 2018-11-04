@@ -1,0 +1,33 @@
+#!/bin/bash
+#
+# astroberry VAP rename script
+# Author: Radek Kaczorek, rkaczorek AT gmail DOT com
+# License: GPL 3.0
+
+if [[ $EUID -ne 0 ]]; then
+   echo "This script must be run as root"
+   exit 1
+fi
+
+echo "Enter your Virtual Access Point name"
+read -p "Name:" SSID
+
+if [ -z "$SSID" ]; then
+   echo "You must enter your Virtual Access Point name!"
+   exit 1
+fi
+
+if [ -f /etc/hostapd/hostapd.conf ] ; then
+    OLDSSID=$(grep "^ssid=" /etc/hostapd/hostapd.conf|awk -F= '{print $2}')
+    if [ -z "$OLDSSID" ]; then
+       echo "Error renaming Virtual Access Point!"
+       exit 1
+    else
+       sed -i -e "s/ssid=$OLDSSID/ssid=$SSID/g" /etc/hostapd/hostapd.conf
+       echo "Virtual Access Point renamed to $SSID. You need to reboot to activate changes."
+       exit 0
+    fi
+else
+    echo "No Virtual Access Point configuration file found!"
+    exit 1
+fi
