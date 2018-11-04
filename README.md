@@ -2,6 +2,8 @@
 Astroberry Server is a ready to use astronomy desktop system for Raspberry Pi 3 Model B and B+
 It is a standalone system for controlling astronomy equipment supported by INDI server.
 
+[![astroberry-server](https://img.youtube.com/vi/t3CHtQmzvhY/0.jpg)](https://youtu.be/t3CHtQmzvhY)
+
 The system features:
 - Ubuntu Mate 16.04 Desktop
 - Virtual Access Point (VAP) allowing to access the system directly i.e. without external wireless network eg. in the field
@@ -83,12 +85,15 @@ sudo systemctrl restart nginx.service
 
 # FAQ
 Q: Why I get black screen after logging to Astroberry Server desktop?
+
 A: The origin of this issue is unknown. Restart your system and try again. If it does not help remove .Xauthority file in your home directory and restart
 
 Q: How can I preserve my configuration while upgrading the system?
+
 A: Backup your /home/astroberry directory on external storage and restore it after reflashing your microSD card
 
 Q: Why I cannot configure my wireless network with wlanconf or wlanconf-gui?
+
 A: In rare cases the provided scripts don't work. To configure your wireless network you can manually edit /etc/wpa_supplicant/wpa_supplicant.conf file
 
 # Issues
