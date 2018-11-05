@@ -26,7 +26,7 @@ The system features:
 - Samba server sharing Pictures directory for easy access to captured images
 
 # How to start?
-Download the image file from https://drive.google.com/open?id=1zGwXLWDD8hubpuarafMWPft6F6Q4bV8R
+Download the image file from https://goo.gl/KWMMCP
 
 Confirm SHA256 checksums in [SHA256SUMS](https://github.com/rkaczorek/astroberry-server/blob/master/SHA256SUMS) file for packed and unpacked image files to ensure that
 they are not corrupted during download.
