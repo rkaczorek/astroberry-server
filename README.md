@@ -34,7 +34,7 @@ they are not corrupted during download.
 Unpack the image file and flash your microSD card (minimum 16GB required) using [etcher.io](https://etcher.io/) or running the below commands in your terminal:
 ```
 xz -d astroberry-server_1.1.0.img.xz
-sudo dd if=astroberry-server_1.1.0.img of=/dev/sdX bs=8M
+sudo dd if=astroberry-server_1.1.0.img of=/dev/sdX bs=8M status=progress
 ```
 Note1: Replace sdX with your microSD card identifier. Make sure it is correct before running the above command!
 Note2: If the image appears to be too big for 16GB microSD card, shrink the image according to [this example](https://softwarebakery.com//shrinking-images-on-linux)
