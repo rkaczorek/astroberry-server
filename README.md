@@ -24,6 +24,7 @@ The system features:
 - Astroberry PiFace drivers for a relay and focuser control
 - Astroberry DIY drivers for focuser, gps, switch board, IMU device
 - Samba server sharing Pictures directory for easy access to captured images
+- Support for raspi-config for easy configuration of Raspberry Pi options
 
 # How to start?
 Download the image file from https://goo.gl/KWMMCP
