@@ -37,7 +37,12 @@ xz -d astroberry-server_1.1.0.img.xz
 sudo dd if=astroberry-server_1.1.0.img of=/dev/sdX bs=8M status=progress
 ```
 Note1: Replace sdX with your microSD card identifier. Make sure it is correct before running the above command!
-Note2: If the image appears to be too big for 16GB microSD card, shrink the image according to [this example](https://softwarebakery.com//shrinking-images-on-linux)
+
+After flashing your microSD card and booting into the system you can expand the filesystem up to maximum space available on the microSD card. To do this open terminal window and run:
+```
+sudo raspi-config
+```
+Then select Advanced Options / Expand Filesystem
 
 # How to use it?
 It's as simple as this:
@@ -84,6 +89,10 @@ sudo systemctrl restart nginx.service
 ```
 
 # FAQ
+Q: The image is too large for my microSD card
+
+A: If the image appears to be too big shrink it according to [this example](https://softwarebakery.com//shrinking-images-on-linux)
+
 Q: Why I get black screen after logging to Astroberry Server desktop?
 
 A: The origin of this issue is unknown. Restart your system and try again. If it does not help remove .Xauthority file in your home directory and restart
