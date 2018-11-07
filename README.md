@@ -106,6 +106,10 @@ Q: Why I cannot configure my wireless network with wlanconf or wlanconf-gui?
 
 A: In rare cases the provided scripts don't work. To configure your wireless network you can manually edit /etc/wpa_supplicant/wpa_supplicant.conf file
 
+Q: I can't see astroberry virtual access point on my Raspberry Pi 3B+
+
+A: It is there! The problem is that your PC does not support wireless ac mode. You need to connect HDMI screen, login and change two parameters in /etc/hostapd/hostapd_3bplus.conf to: hw_mode=g and channel=6. After restarting the astroberry will appear on the wireless networks list.
+
 # Issues
 File any issues on https://github.com/rkaczorek/astroberry-server
 
