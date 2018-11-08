@@ -2,6 +2,8 @@
 Astroberry Server is a ready to use astronomy desktop system for Raspberry Pi 3 Model B and B+
 It is a standalone system for controlling astronomy equipment supported by INDI server.
 
+[![astroberry-server](https://img.youtube.com/vi/BWJT1OR8TRA/0.jpg)](https://youtu.be/BWJT1OR8TRA)
+
 [![astroberry-server](https://img.youtube.com/vi/t3CHtQmzvhY/0.jpg)](https://youtu.be/ZHCab7DomkI)
 
 The system features:
