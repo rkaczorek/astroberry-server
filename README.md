@@ -50,7 +50,7 @@ Then select Advanced Options / Expand Filesystem
 # How to use it?
 It's as simple as this:
 - Start your Raspberry Pi with the flashed microSD card.
-- Connect to a astroberry wireless network (default password is astroberry)
+- Connect to an astroberry wireless network (default password is astroberry) 
 - Point your browser to http://astroberry.local or http://IP_ADDRESS
 - Click Connect button to access Astroberry Server in unencrypted mode or 'encrypted connection' link to use secure connection
 - Login to desktop (default password is astroberry)
@@ -103,6 +103,10 @@ A: The origin of this issue is unknown. Restart your system and try again. If it
 Q: How can I preserve my configuration while upgrading the system?
 
 A: Backup your /home/astroberry directory on external storage and restore it after reflashing your microSD card
+
+Q: How to connect to my wireless home network?
+
+A: Use wlanconf in your terminal or click wireless icon located in right-top panel, enter your network name and password and restart the system.
 
 Q: Why I cannot configure my wireless network with wlanconf or wlanconf-gui?
 
