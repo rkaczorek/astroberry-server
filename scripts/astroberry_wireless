@@ -1,0 +1,76 @@
+#!/bin/bash
+#
+# Astroberry Server wireless connection / VAP fallback script
+# Author: Radek Kaczorek, rkaczorek AT gmail DOT com
+# License: GPL 3.0
+
+if [[ $EUID -ne 0 ]]; then
+   echo "This script must be run as root"
+   exit 1
+fi
+
+# check if VAP active
+if [ "$(grep vap0 /proc/net/dev)" != "" ]; then
+        echo -e "Virtual Access Point ACTIVE. \e[31mReboot to try connecting to known AP\e[0m"
+        exit
+fi
+
+# check if connected to AP
+echo -n "Checking if connected to AP"
+for ((i=1; i<=10; i++)); do
+	echo -n "."
+	SSID=$(iwgetid | awk -F: '{print $2}'|sed 's/"//g')
+	if [ "$SSID" != "" ]; then
+		echo
+        	echo -e "Connected to AP: \e[31m$SSID\e[0m. Virtual Access Point INACTIVE"
+	        exit
+	fi
+	sleep 1
+done
+
+echo " Not connected"
+echo "Trying to connect to known AP"
+
+
+APS="0"
+KNOWN_SSID=$(grep ^ssid /etc/wpa_supplicant/wpa_supplicant.conf | awk -F= '{print $2}'|sed 's/"//g')
+AVAILABLE_SSID=$(iw dev wlan0 scan | grep SSID: | awk -F: '{print $2}' | sed 's/\ //g')
+
+for AP in $KNOWN_SSID; do
+	if echo "$AVAILABLE_SSID" | grep --quiet --line-regexp --fixed-strings "$AP"; then
+		# echo "$AP available"
+		APS=$[$APS+1]
+	fi
+done
+
+if [ $APS -gt 0 ]; then
+	echo "Wireless network available"
+	/sbin/wpa_supplicant -s -B -P /run/wpa_supplicant.wlan0.pid -i wlan0 -D nl80211,wext -c /etc/wpa_supplicant/wpa_supplicant.conf
+	echo -n "Connecting"
+	for ((i=1; i<=30; i++)); do
+		echo -n "."
+		if wpa_cli -i wlan0 status | grep --quiet "wpa_state=COMPLETED";then
+			echo " OK"
+			/sbin/dhclient -1 -v -pf /run/dhclient.wlan0.pid -lf /var/lib/dhcp/dhclient.wlan0.leases -I -df /var/lib/dhcp/dhclient6.wlan0.leases wlan0 > /dev/null 2>&1
+			exit
+		fi
+		sleep 1
+	done
+	echo
+	echo -e "Can't connect to wireless network. \e[31mCheck your password and try again\e[0m"
+fi
+
+
+wpa_cli -i wlan0 terminate > /dev/null 2>&1
+
+echo "Starting Virtual Access Point"
+iw dev wlan0 interface add vap0 type __ap
+sleep 1
+ifconfig vap0 192.168.10.1 netmask 255.255.255.0 broadcast 192.168.10.255 up
+sleep 1
+hostapd -B /etc/hostapd/hostapd.conf
+sleep 3
+#sysctl net.ipv4.ip_forward=1
+#iptables -t nat -A POSTROUTING -s 192.168.10.0/24 ! -d 192.168.10.0/24 -j MASQUERADE
+service dnsmasq start
+echo "Virtual Access Point READY"
