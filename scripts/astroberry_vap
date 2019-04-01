@@ -9,18 +9,9 @@ if [[ $EUID -ne 0 ]]; then
    exit 1
 fi
 
-REVISION=$(grep Revision /proc/cpuinfo |awk -F: '{print $2}'|sed 's/\ //')
+source $(dirname $0)/vap-common.bash
 
-# take only 6 significant characters from right
-REVISION=${REVISION:(-6)}
-
-if [ "$REVISION" == "a02082" ] || [ "$REVISION" == "a32082" ] || [ "$REVISION" == "a52082" ]; then # Raspberry Pi 3B
-        VAPCONF="/etc/hostapd/hostapd_3b.conf"
-elif [ "$REVISION" == "a020d3" ]; then
-        VAPCONF="/etc/hostapd/hostapd_3bplus.conf" # Raspberry Pi 3B+
-else
-        VAPCONF="/etc/hostapd/hostapd.conf"
-fi
+get_hostapd_conf_path
 
 function vap_start {
 	if [ "$(grep vap0 /proc/net/dev)" == "" ]; then
