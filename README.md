@@ -115,15 +115,15 @@ A: In rare cases the provided scripts don't work. To configure your wireless net
 Q: I can't see astroberry virtual access point on my Raspberry Pi 3B+
 
 A: It is there! The problem is that your PC does not support wireless ac mode. You need to connect HDMI screen, login and change two parameters in /etc/hostapd/hostapd_3bplus.conf to: hw_mode=g and channel=6. You can edit the file by running:
-
-Q: How can I change my regional settings or add support for my language?
-
-A: You can do that in operating system setting (System/Preferences/Personal/Language Support). Faulty Firefox in Ubuntu Mate 16.04 on Raspberry Pi makes it impossible. Uninstall Firefox first and change the settings next.
 ```
 sudo nano /etc/hostapd/hostapd_3bplus.conf
 ```
 To save the changes use ctrl+o and to exit editor use ctrl+x.
 After restarting the system astroberry access point will appear on the wireless networks list.
+
+Q: How can I change my regional settings or add support for my language?
+
+A: You can do that in operating system setting (System/Preferences/Personal/Language Support). Faulty Firefox in Ubuntu Mate 16.04 on Raspberry Pi makes it impossible. Uninstall Firefox first and change the settings next.
 
 # Issues
 File any issues on https://github.com/rkaczorek/astroberry-server
