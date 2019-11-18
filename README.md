@@ -2,8 +2,6 @@
 Astroberry Server is a ready to use system for Raspberry Pi for controlling all your astronomy equipment.
 It handles all astronomy equipment supported by INDI server.
 
-![alt img1](https://raw.githubusercontent.com/rkaczorek/astroberry-server/v2/files/astroberry-repository.png)
-
 ![alt img2](https://raw.githubusercontent.com/rkaczorek/astroberry-server/v2/files/sneakpreview.jpg)
 
 
@@ -44,7 +42,7 @@ After flashing your microSD card, boot your Raspberry Pi and enjoy!
 
 OR
 
-Download official **Raspbian Buster with desktop** image and flash your microSD card with it.
+Download official [Raspbian Buster with desktop](https://www.raspberrypi.org/downloads/raspbian/) image and flash your microSD card with it.
 After the first boot, connect your Raspberry Pi to a screen, setup your system with the first boot wizard and run the following commands in your terminal:
 ```
 wget -O - https://www.astroberry.io/repo/key | sudo apt-key add -
