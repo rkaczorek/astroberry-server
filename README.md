@@ -2,12 +2,15 @@
 Astroberry Server is a ready to use system for Raspberry Pi for controlling all your astronomy equipment.
 It handles all astronomy equipment supported by INDI server.
 
-![alt header](https://raw.githubusercontent.com/rkaczorek/astroberry-server/v2/files/astroberry-repository.png)
+![alt img1](https://raw.githubusercontent.com/rkaczorek/astroberry-server/v2/files/astroberry-repository.png)
+
+![alt img2](https://raw.githubusercontent.com/rkaczorek/astroberry-server/v2/files/sneakpreview.jpg)
+
 
 The system features:
 - Raspbian Buster Desktop
-- Web interface featuring GPS Panel and Astro Panel (celestial almanac for your localization)
 - APT repository for Raspbian Buster (yes, now any Raspbian Buster user can install Astroberry Server)
+- Web interface featuring GPS Panel and Astro Panel (celestial almanac for your localization)
 - Astroberry Wireless Hotspot allowing to access the system directly i.e. without external wireless network eg. in the field
 - Remote desktop accessible over VNC at astroberry.local:5900 or a web browser at http://astroberry.local/desktop
 - KStars planetarium software and Ekos with all available device drivers plus custom astroberry drivers
@@ -41,7 +44,7 @@ After flashing your microSD card, boot your Raspberry Pi and enjoy!
 
 OR
 
-Download official *** Raspbian Buster with desktop *** image and flash your microSD card with it.
+Download official **Raspbian Buster with desktop** image and flash your microSD card with it.
 After the first boot, connect your Raspberry Pi to a screen, setup your system with the first boot wizard and run the following commands in your terminal:
 ```
 wget -O - https://www.astroberry.io/repo/key | sudo apt-key add -
@@ -77,11 +80,11 @@ keep your Astroberry Server in good shape. These are:
 - astroberry-server-artwork
 
 # What is default username and password?
-It's (almost) always astroberry:
-- For SSH access run: ssh astroberry@astroberry.local
+It's (almost) always **astroberry**:
+- For SSH access run: ssh astroberry@astroberry.local and use 'astroberry' for password
 - For VNC access connect to astroberry.local:5900 and use astroberry for username and password
-- For secure browser access use https://astroberry.local/ or https://IP_ADDRESS then click Connect button and login (default password is astroberry)
-- For insecure browser access use http://astroberry.local/ or http://IP_ADDRESS then click Connect button and login (default password is astrober)
+- For secure browser access use https://astroberry.local/ or https://IP_ADDRESS then click Connect button and use 'astroberry' for password
+- For insecure browser access use http://astroberry.local/ or http://IP_ADDRESS then click Connect button and use 'astrober' for password (up to 8 characters)
 
 # Installing your own certificates
 Using secure connection requires a security certificate installed on your Astroberry Server. Basic certificate is provided with the system.
