@@ -1,3 +1,12 @@
+Version 2.0.0
+==================
+
+- Totally new!
+- Based on Raspbian Buster Desktop
+- Own APT repository
+- No custom scripting, just proper deb packages
+
+
 Version 1.1.0
 ==================
 
