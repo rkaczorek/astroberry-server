@@ -7,12 +7,16 @@ It handles all astronomy equipment supported by INDI server.
 
 The system features:
 - Raspbian Buster Desktop
-- APT repository for Raspbian Buster (yes, now any Raspbian Buster user can install Astroberry Server)
+- APT repository for Raspbian Buster (yes, now any Raspbian Buster user can install Astroberry Server with 'apt install')
 - Web interface featuring GPS Panel and Astro Panel (celestial almanac for your localization)
 - Astroberry Wireless Hotspot allowing to access the system directly i.e. without external wireless network eg. in the field
 - Remote desktop accessible over VNC at astroberry.local:5900 or a web browser at http://astroberry.local/desktop
 - KStars planetarium software and Ekos with all available device drivers plus custom astroberry drivers
+- SkyChart / Cartes du Ciel planetarium program
+- Hallo Northern SKY planetarium program
+- CCDciel capture software
 - Astrometry for field solving
+- ASTAP, the Astrometric STAcking Program
 - PHD2 for autoguiding
 - Gnome Predict for satellite tracking
 - oaCapture for planetary imaging
