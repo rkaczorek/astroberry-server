@@ -8,6 +8,7 @@ Visit [www.astroberry.io](https://www.astroberry.io) for details and system imag
 
 
 The system features:
+- Support for Raspberry Pi 3 and 4
 - Raspbian Buster Desktop
 - APT repository for Raspbian Buster (yes, now any Raspbian Buster user can install Astroberry Server with 'apt install')
 - Web interface featuring GPS Panel and Astro Panel (celestial almanac for your localization)
