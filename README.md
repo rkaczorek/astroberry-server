@@ -4,7 +4,7 @@ It handles all astronomy equipment supported by INDI server.
 
 Visit [www.astroberry.io](https://www.astroberry.io) for details and system image.
 
-![alt img2](https://raw.githubusercontent.com/rkaczorek/astroberry-server/v2/files/sneakpreview.jpg)
+![alt img2](https://raw.githubusercontent.com/rkaczorek/astroberry-server/master/files/sneakpreview.jpg)
 
 
 The system features:
