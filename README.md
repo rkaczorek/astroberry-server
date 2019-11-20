@@ -102,23 +102,23 @@ sudo systemctrl restart nginx.service
 ```
 
 # FAQ
-Q: How can I update the system?
+**Q: How can I update the system?**
 
 A: You can upgrade all system components using regular system upgrade using apt, apt-get, aptitude or Software Updater.
 
-Q: The image is too large for my microSD card
+**Q: The image is too large for my microSD card**
 
 A: If the image appears to be too big shrink it according to [this example](https://softwarebakery.com//shrinking-images-on-linux)
 
-Q: How to connect to my wireless home network?
+**Q: How to connect to my wireless home network?**
 
 A: Click wireless icon located in taskbar panel, enter your network name and password and restart the system.
 
-Q: How can I change my regional settings or add support for my language?
+**Q: How can I change my regional settings or add support for my language?**
 
 A: The easiest way is to run raspi-config (console) and rc_gui (graphical UI). The latter is accessible in Menu / Preferences / Raspberry Pi Configuration
 
-Q: How can I change location in Celestial Information sliding panel?
+**Q: How can I change location in Celestial Information sliding panel?**
 
 A: The panel is linked to weather applet located in your taskbar. Set your location in weather applet and your Celestial Information will be computed for selected location.
 
