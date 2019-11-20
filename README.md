@@ -2,6 +2,8 @@
 Astroberry Server is a ready to use system for Raspberry Pi for controlling all your astronomy equipment.
 It handles all astronomy equipment supported by INDI server.
 
+Visit [www.astroberry.io](https://www.astroberry.io) for details and system image.
+
 ![alt img2](https://raw.githubusercontent.com/rkaczorek/astroberry-server/v2/files/sneakpreview.jpg)
 
 
@@ -33,7 +35,7 @@ Starting from version 2.0.0 you can install Astroberry Server using two modes:
 
 Download the image file from https://www.astroberry.io/distro/
 
-Verify SHA256 checksums of downloaded image in [SHA256SUMS](https://github.com/rkaczorek/astroberry-server/blob/master/SHA256SUMS) to ensure that they are authentic and not corrupted.
+Verify SHA256 checksums of downloaded image in [SHA256SUMS](https://github.com/rkaczorek/astroberry-server/blob/master/SHA256SUMS) to ensure that it is authentic and not corrupted.
 
 Unpack the image file and flash your microSD card (minimum 16GB required) using [etcher.io](https://etcher.io/) or running the below commands in your terminal:
 ```
@@ -100,14 +102,25 @@ sudo systemctrl restart nginx.service
 ```
 
 # FAQ
+Q: How can I update the system?
+
+A: You can upgrade all system components using regular system upgrade using apt, apt-get, aptitude or Software Updater.
+
 Q: The image is too large for my microSD card
+
 A: If the image appears to be too big shrink it according to [this example](https://softwarebakery.com//shrinking-images-on-linux)
 
 Q: How to connect to my wireless home network?
+
 A: Click wireless icon located in taskbar panel, enter your network name and password and restart the system.
 
 Q: How can I change my regional settings or add support for my language?
+
 A: The easiest way is to run raspi-config (console) and rc_gui (graphical UI). The latter is accessible in Menu / Preferences / Raspberry Pi Configuration
+
+Q: How can I change location in Celestial Information sliding panel?
+
+A: The panel is linked to weather applet located in your taskbar. Set your location in weather applet and your Celestial Information will be computed for selected location.
 
 # Issues
 File any issues on https://github.com/rkaczorek/astroberry-server
