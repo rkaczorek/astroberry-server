@@ -123,6 +123,10 @@ A: The easiest way is to run raspi-config (console) and rc_gui (graphical UI). T
 
 A: The panel is linked to weather applet located in your taskbar. Set your location in weather applet and your Celestial Information will be computed for selected location.
 
+**Q: How can I login to default pi user account?**
+
+A: Pi user account is disabled on fresh install for security reasons. You can reenable it anytime by running: sudo passwd -u pi
+
 # Issues
 File any issues on https://github.com/rkaczorek/astroberry-server
 
