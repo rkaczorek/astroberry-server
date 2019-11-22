@@ -115,6 +115,10 @@ A: If the image appears to be too big shrink it according to [this example](http
 
 A: Click wireless icon located in taskbar panel, enter your network name and password and restart the system.
 
+**Q: I cannot login to astroberry HotSpot**
+
+A: Note that default keyboard layout used in the image is [QUERTY](https://en.wikipedia.org/wiki/QWERTY). If you use other keyboard layout the password you type in might be different than you think e.g. for French keyboard it may become astroberrz (instead astroberry). Change your keyboard layout using raspi-config or gui_rc to aligh system configuration and your keyboard.
+
 **Q: How can I change my regional settings or add support for my language?**
 
 A: The easiest way is to run raspi-config (console) and rc_gui (graphical UI). The latter is accessible in Menu / Preferences / Raspberry Pi Configuration
