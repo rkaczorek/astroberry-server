@@ -131,6 +131,10 @@ A: The panel is linked to weather applet located in your taskbar. Set your locat
 
 A: Pi user account is disabled on fresh install for security reasons. You can reenable it anytime by running: sudo passwd -u pi
 
+**Q: Where does Astro Panel get location from?**
+
+A: Astro Panel (available **only** when connecting via web browser) by default gets location data from GPS. You can change it to static configutation by setting use_gps = no in /etc/astropanel.conf. If configuration file is not available Astro Panel will use location you set in Weather Plugin to your Taskbar.
+
 # Issues
 File any issues on https://github.com/rkaczorek/astroberry-server
 
