@@ -15,15 +15,15 @@ The system features:
 - Astroberry Wireless Hotspot allowing to access the system directly i.e. without external wireless network eg. in the field
 - Remote desktop accessible over VNC at astroberry.local:5900 or a web browser at http://astroberry.local/desktop
 - KStars planetarium software and Ekos with all available device drivers plus custom astroberry drivers
-- SkyChart / Cartes du Ciel planetarium program
-- Hallo Northern SKY planetarium program
-- CCDciel capture software
+- SkyChart / Cartes du Ciel planetarium program (only in precooked image)
+- Hallo Northern SKY planetarium program (only in precooked image)
+- CCDciel capture software (only in precooked image)
 - Astrometry for field solving
-- ASTAP, the Astrometric STAcking Program
+- ASTAP, the Astrometric STAcking Program (only in precooked image)
 - PHD2 for autoguiding
 - Gnome Predict for satellite tracking
 - oaCapture for planetary imaging
-- SER Player for watching captured video streams
+- SER Player for watching captured video streams (only in precooked image)
 - Astroberry PiFace drivers for a relay and focuser control
 - Astroberry DIY drivers for focuser and relay board
 - Astroberry PiFace drivers for focuser and relay board
