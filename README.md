@@ -127,7 +127,7 @@ A: The easiest way is to run raspi-config (console) and rc_gui (graphical UI). T
 
 **Q: How can I change location in Celestial Information sliding panel?**
 
-A: The panel is linked to weather applet located in your taskbar. Set your location in weather applet and your Celestial Information will be computed for selected location.
+A: The panel uses GPS for your location. If you don't have GPS the panel uses virtualgps. You can set your static location by editing /etc/location.conf file or using Preferences/Geographic Location menu
 
 **Q: How can I login to default pi user account?**
 
