@@ -68,7 +68,7 @@ It's as simple as this:
 - Click Connect button to access Astroberry Server
 - Connect to Astroberry desktop (default password is astroberry)
 
-Note 1: If you connect via Hotspot default IP_ADDRESS is 10.42.0.1, if you connect via your home wireless network IP_ADDRESS will be assigned by your AP/router.
+Note 1: If you connect via Hotspot default IP_ADDRESS is 10.42.0.1, if you connect via wire or your home wireless network, IP_ADDRESS will be assigned by your router/access point.
 
 Note 2: Astroberry Server is accessible via insecure at http://astroberry.local or http://IP_ADDRESS or
 secure https://astroberry.local or https://IP_ADDRESS. If you use the latter you need to trust provided certificate or install your own.
