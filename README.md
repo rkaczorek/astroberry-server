@@ -125,17 +125,13 @@ A: Note that default keyboard layout used in the image is [QUERTY](https://en.wi
 
 A: The easiest way is to run raspi-config (console) and rc_gui (graphical UI). The latter is accessible in Menu / Preferences / Raspberry Pi Configuration
 
-**Q: How can I change location in Celestial Information sliding panel?**
+**Q: What is the source of location data in GPS Panel and Astro Panel accessible in sliding panel (when connected with web browser)?**
 
-A: The panel uses GPS for your location. If you don't have GPS the panel uses virtualgps. You can set your static location by editing /etc/location.conf file or using Preferences/Geographic Location menu
+A: The panels use GPS readings for your location. If you don't have GPS the panel uses virtualgps provided with Astroberry Server. You can set your static location by editing /etc/location.conf file or using Preferences/Geographic Location menu. After the change reboot or restart virtual GPS by running: sudo systemctl restart virtualgps.service
 
 **Q: How can I login to default pi user account?**
 
-A: Pi user account is disabled on fresh install for security reasons. You can reenable it anytime by running: sudo passwd -u pi
-
-**Q: Where does Astro Panel get location from?**
-
-A: Astro Panel (available **only** when connecting via web browser) by default gets location data from GPS. You can change it to static configutation by setting use_gps = no in /etc/astropanel.conf. If configuration file is not available Astro Panel will use location you set in Weather Plugin (available on top taskbar).
+A: Pi user account is disabled for security reasons. You can reenable it anytime by running: sudo passwd -u pi
 
 # Issues
 File any issues on https://github.com/rkaczorek/astroberry-server
