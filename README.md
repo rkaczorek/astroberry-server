@@ -43,9 +43,9 @@ Unpack the image file and flash your microSD card (minimum 16GB required) using 
 unzip astroberry-server_2.0.0.img.zip
 sudo dd if=astroberry-server_2.0.0.img of=/dev/sdX bs=8M status=progress
 ```
-Note: Replace sdX with your microSD card identifier. Make sure it is correct before running the above command!
+Note 1: **Replace sdX with your microSD card identifier**. Make sure it is correct before running the above command!
 
-After flashing your microSD card, boot your Raspberry Pi and enjoy!
+After flashing your microSD card, boot your Raspberry Pi and enjoy! It is recommended to update your system after first boot. Run 'sudo apt update && sudo apt upgrade' to keep your system up to date.
 
 OR
 
