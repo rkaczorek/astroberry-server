@@ -75,7 +75,11 @@ secure https://astroberry.local or https://IP_ADDRESS. If you use the latter you
 Otherwise your browser will warn you of security risk.
       
 # How to upgrade?
-Starting from version 2.0.0 you can upgrade all system components using regular system upgrade using apt, apt-get, aptitude or Software Updater.
+Starting from version 2.0.0 you can upgrade all system components using regular system upgrade using apt, apt-get, aptitude or Software Updater. If you use terminal just run:
+```
+sudo apt update
+sudo apt upgrade
+```
 There is no need to reflash your microSD card with the latest image file to upgrade the system anymore!
 
 # How to reconfigure it?
