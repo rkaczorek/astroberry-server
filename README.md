@@ -40,8 +40,8 @@ Verify SHA256 checksums of downloaded image in [SHA256SUMS](https://github.com/r
 
 Unpack the image file and flash your microSD card (minimum 16GB required) using [etcher.io](https://etcher.io/) or running the below commands in your terminal:
 ```
-unzip astroberry-server_2.0.0.img.zip
-sudo dd if=astroberry-server_2.0.0.img of=/dev/sdX bs=8M status=progress
+unzip astroberry-server_2.0.1.img.zip
+sudo dd if=astroberry-server_2.0.1.img of=/dev/sdX bs=8M status=progress
 ```
 Note 1: **Replace sdX with your microSD card identifier**. Make sure it is correct before running the above command!
 
