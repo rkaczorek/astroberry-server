@@ -119,7 +119,14 @@ A: If the image appears to be too big shrink it according to [this example](http
 
 **Q: How to connect to my wireless home network?**
 
-A: Click wireless icon located in taskbar panel, enter your network name and password and restart the system.
+A: Wireless connection is predefined for you. Just edit it and change network name and password.
+   - Right-click wireless icon on the taskbar
+   - Select Edit connections
+   - Double-click Wireless connection
+   - Enter your network name in SSID field
+   - Go to Wi-Fi Security tab
+   - Enter your network password in Password field
+   - Reboot
 
 **Q: I cannot login to astroberry HotSpot**
 
