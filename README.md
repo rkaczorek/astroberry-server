@@ -104,8 +104,8 @@ configuration might not work for you. In such a case just use unencrypted connec
 To do this you need to get your certificate issued by a public certification authority recognized by your browser.
 As soon as you get your own certificate you can install it by replacing the content of the file /opt/noVNC/server.pem. To activate your changes run:
 ```
-sudo systemctrl restart novnc.service
-sudo systemctrl restart nginx.service
+sudo systemctl restart novnc.service
+sudo systemctl restart nginx.service
 ```
 
 # FAQ
