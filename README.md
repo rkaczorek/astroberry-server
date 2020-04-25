@@ -24,7 +24,6 @@ The system features:
 - Gnome Predict for satellite tracking
 - oaCapture for planetary imaging
 - SER Player for watching captured video streams (only in precooked image)
-- Astroberry PiFace drivers for a relay and focuser control
 - Astroberry DIY drivers for focuser and relay board
 - Astroberry PiFace drivers for focuser and relay board
 - Astroberry Motor HAT for focuser based on Adafruit Motor HAT
