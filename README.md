@@ -70,8 +70,9 @@ It's as simple as this:
 Note 1: If you connect via Hotspot default IP_ADDRESS is 10.42.0.1, if you connect via wire or your home wireless network, IP_ADDRESS will be assigned by your router/access point.
 
 Note 2: Astroberry Server is accessible via insecure at http://astroberry.local or http://IP_ADDRESS or
-secure https://astroberry.local or https://IP_ADDRESS. If you use the latter you need to trust provided certificate or install your own.
-Otherwise your browser will warn you of security risk.
+secure https://astroberry.local or https://IP_ADDRESS. If you use the latter you need to trust provided certificate or install your own. Otherwise your browser will warn you of security risk.
+
+Note 3: If your display cannot handle FullHD resolution (1920x1080) you need to either connect via web browser and set Local in sliding menu Settings / Scaling OR you need to change the screen resolution by running raspi-config in terminal or Raspberry Pi Configuration from Prefferences menu.
       
 # How to upgrade?
 Starting from version 2.0.0 you can upgrade all system components using regular system upgrade using apt, apt-get, aptitude or Software Updater. If you use terminal just run:
@@ -134,6 +135,10 @@ A: Note that default keyboard layout used in the image is [QUERTY](https://en.wi
 **Q: How can I change my regional settings or add support for my language?**
 
 A: The easiest way is to run raspi-config (console) and rc_gui (graphical UI). The latter is accessible in Menu / Preferences / Raspberry Pi Configuration
+
+**Q: Screen resolution does not match my display. How can I fix it?**
+
+A: If your display cannot handle FullHD resolution (1920x1080) you need to either connect via web browser and set Local in sliding menu Settings / Scaling OR you need to change the system resolution by running raspi-config in terminal or Raspberry Pi Configuration from Prefferences menu.
 
 **Q: What is the source of location data in GPS Panel and Astro Panel accessible in sliding panel (when connected with web browser)?**
 
