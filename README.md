@@ -23,6 +23,7 @@ The system features:
 - PHD2 for autoguiding
 - Gnome Predict for satellite tracking
 - oaCapture for planetary imaging
+- FireCapture for planetary imaging
 - SER Player for watching captured video streams (only in precooked image)
 - Astroberry DIY drivers for focuser and relay board
 - Astroberry PiFace drivers for focuser and relay board
