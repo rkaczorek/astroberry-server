@@ -29,6 +29,7 @@ The system features:
 - Astroberry DIY drivers for focuser and relay board
 - Astroberry PiFace drivers for focuser and relay board
 - Astroberry Motor HAT for focuser based on Adafruit Motor HAT
+- Virtual GPS for users who do not have GPS device
 - File sharing server allowing for network access to captured images
 - Support for raspi-config (console) and rc_gui (graphical UI) for easy configuration of Raspberry Pi options
 
