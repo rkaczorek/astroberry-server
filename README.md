@@ -14,6 +14,7 @@ The system features:
 - Web interface featuring GPS Panel and Astro Panel (celestial almanac for your localization)
 - Astroberry Wireless Hotspot allowing to access the system directly i.e. without external wireless network eg. in the field
 - Remote desktop accessible over VNC at astroberry.local:5900 or a web browser at http://astroberry.local/desktop
+- INDI framework with all available device drivers
 - KStars planetarium software and Ekos with all available device drivers plus custom astroberry drivers
 - SkyChart / Cartes du Ciel planetarium program (only in precooked image)
 - Hallo Northern SKY planetarium program (only in precooked image)
