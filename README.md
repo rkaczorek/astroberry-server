@@ -9,8 +9,8 @@ Visit [www.astroberry.io](https://www.astroberry.io) for details and system imag
 
 The system features:
 - Support for Raspberry Pi 3 and 4, Pi Zero and... probably any other Raspberry Pi version released so far
-- Raspbian Buster Desktop
-- APT repository for Raspbian Buster (yes, now any Raspbian Buster user can install Astroberry Server with 'apt install')
+- Raspberry Pi OS Desktop
+- APT repository for Raspberry Pi OS (yes, now any Raspberry Pi OS user can install Astroberry Server with 'apt install')
 - Web interface featuring GPS Panel and Astro Panel (celestial almanac for your localization)
 - Astroberry Wireless Hotspot allowing to access the system directly i.e. without external wireless network eg. in the field
 - Remote desktop accessible over VNC at astroberry.local:5900 or a web browser at http://astroberry.local/desktop
@@ -42,8 +42,8 @@ Verify SHA256 checksums of downloaded image in [SHA256SUMS](https://github.com/r
 
 Unpack the image file and flash your microSD card (minimum 16GB required) using [etcher.io](https://etcher.io/) or running the below commands in your terminal:
 ```
-unzip astroberry-server_2.0.1.img.zip
-sudo dd if=astroberry-server_2.0.1.img of=/dev/sdX bs=8M status=progress
+unzip astroberry-server_2.0.2.img.zip
+sudo dd if=astroberry-server_2.0.2.img of=/dev/sdX bs=8M status=progress
 ```
 Note 1: **Replace sdX with your microSD card identifier**. Make sure it is correct before running the above command!
 
@@ -51,7 +51,7 @@ After flashing your microSD card, boot your Raspberry Pi and enjoy! It is recomm
 
 OR
 
-Download official [Raspbian Buster with desktop](https://www.raspberrypi.org/downloads/raspbian/) image and flash your microSD card with it.
+Download official [Raspberry Pi OS with desktop](https://www.raspberrypi.org/downloads/raspberry-pi-os/) image and flash your microSD card with it.
 After the first boot, connect your Raspberry Pi to a screen, setup your system with the first boot wizard and run the following commands in your terminal:
 ```
 wget -O - https://www.astroberry.io/repo/key | sudo apt-key add -
@@ -86,7 +86,7 @@ sudo apt upgrade
 There is no need to reflash your microSD card with the latest image file to upgrade the system anymore!
 
 # How to reconfigure it?
-You can use it as any Raspbian system, however there are some mission critical packages installed for you. Don't uninstall them if you want to
+You can use it as any Raspberry Pi OS system, however there are some mission critical packages installed for you. Don't uninstall them if you want to
 keep your Astroberry Server in good shape. These are:
 - astroberry-server-full
 - astroberry-server-sysmod
