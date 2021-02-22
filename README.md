@@ -111,6 +111,25 @@ sudo systemctl restart novnc.service
 sudo systemctl restart nginx.service
 ```
 
+# Where is the source code of the system?
+The core of the system is based on [Raspberry Pi OS with desktop](https://www.raspberrypi.org/downloads/raspberry-pi-os/) and is maintained by Raspberry Foundation. The core is is enriched with bunch of tools and configurationscoming from the following subprojects:
+
+- [astroberry-server-wui](https://github.com/rkaczorek/astroberry-server-wui)
+- [astroberry-server-artwork](https://github.com/rkaczorek/astroberry-server-artwork)
+- [astroberry-server-sysmod](https://github.com/rkaczorek/astroberry-server-sysmod)
+- [astroberry-server-wiz](https://github.com/rkaczorek/astroberry-server-wiz)
+- [astroberry-server-hotspot](https://github.com/rkaczorek/astroberry-server-hotspot)
+- [astroberry-server-full](https://github.com/rkaczorek/astroberry-server-full)
+
+Plus it is enhanced by these projects:
+- [astroberry-diy](https://github.com/rkaczorek/astroberry-diy)
+- [astroberry-amh](https://github.com/rkaczorek/astroberry-amh)
+- [astroberry-piface](https://github.com/rkaczorek/astroberry-piface)
+- [virtualgps](https://github.com/rkaczorek/virtualgps)
+- [gpspanel](https://github.com/rkaczorek/gpspanel)
+- [astropanel](https://github.com/rkaczorek/astropanel)
+- [indi-mqtt](https://github.com/rkaczorek/indi-mqtt)
+
 # FAQ
 **Q: How can I update the system?**
 
