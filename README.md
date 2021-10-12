@@ -3,6 +3,9 @@ Astroberry Server is a ready to use system for Raspberry Pi for controlling all 
 It handles all astronomy equipment supported by INDI server.
 
 Visit [www.astroberry.io](https://www.astroberry.io) for details and system image.
+Visit [Facebook profile](https://www.facebook.com/astroberryserver) to meet other users.
+Visit [YouTube channel](https://www.youtube.com/channel/UCQfeJZsRZQrm7O1Gl8yAt5A) for featured videos.
+Visit [INDI forum](https://indilib.org/forum/astroberry.html) to share your experience.
 
 ![alt img2](https://raw.githubusercontent.com/rkaczorek/astroberry-server/master/files/sneakpreview.jpg)
 
@@ -42,8 +45,8 @@ Verify SHA256 checksums of downloaded image in [SHA256SUMS](https://github.com/r
 
 Unpack the image file and flash your microSD card (minimum 16GB required) using [etcher.io](https://etcher.io/) or running the below commands in your terminal:
 ```
-unzip astroberry-server_2.0.2.img.zip
-sudo dd if=astroberry-server_2.0.2.img of=/dev/sdX bs=8M status=progress
+unzip astroberry-server_2.0.4.img.zip
+sudo dd if=astroberry-server_2.0.4.img of=/dev/sdX bs=8M status=progress
 ```
 Note 1: **Replace sdX with your microSD card identifier**. Make sure it is correct before running the above command!
 
