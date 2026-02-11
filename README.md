@@ -1,3 +1,5 @@
+This project **has moved** to https://github.com/astroberry-official and will not be maintained **here** anymore.
+
 # Astroberry Server
 Astroberry Server is a ready to use system for Raspberry Pi for controlling all your astronomy equipment.
 It handles all astronomy equipment supported by INDI server.
